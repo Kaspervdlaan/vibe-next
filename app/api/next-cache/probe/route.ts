@@ -2,8 +2,6 @@ import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { getStorySlugTag } from "../../../../src/lib/api/story";
 
-export const dynamic = "force-dynamic";
-
 const normalizeSlug = (slug?: string | null): string => {
   const normalized = (slug ?? "").trim().replace(/^\/+|\/+$/g, "");
 
@@ -39,14 +37,17 @@ const getCachedProbeResponse = async (
 export async function GET(request: NextRequest) {
   const slug = normalizeSlug(request.nextUrl.searchParams.get("slug"));
   const tag = getStorySlugTag(slug);
-  const source = await getCachedProbeResponse(slug, tag);
+  const first = await getCachedProbeResponse(slug, tag);
+  const second = await getCachedProbeResponse(slug, tag);
+  const sameRequestStable = first.generatedAt === second.generatedAt;
 
   return NextResponse.json({
     ok: true,
     slug,
     tag,
-    sourceGeneratedAt: source.generatedAt,
-    sourceSlug: source.slug,
+    sourceGeneratedAt: second.generatedAt,
+    sourceSlug: second.slug,
+    sameRequestStable,
     checkedAt: Date.now(),
   });
 }
