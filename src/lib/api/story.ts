@@ -7,7 +7,6 @@ export interface StoryApiResponse {
   story?: StoryPayload | null;
 }
 
-export const STORY_GLOBAL_TAG = "story:global";
 const STORY_SLUG_TAG_PREFIX = "story:slug:";
 
 export const getStorySlugTag = (slug: string): string => {
@@ -35,7 +34,7 @@ export const fetchStoryBySlug = async (
     },
     next: {
       revalidate: revalidateSeconds,
-      tags: [STORY_GLOBAL_TAG, getStorySlugTag(slug)],
+      tags: [getStorySlugTag(slug)],
     },
   });
 
