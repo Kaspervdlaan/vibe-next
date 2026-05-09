@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useId } from 'react';
+import React, { useState, useRef, useEffect, useId, useCallback } from 'react';
 import { Box } from '../../atoms/Box';
 import { Typography } from '../../atoms/Typography';
 import './_select.scss';
@@ -70,6 +70,15 @@ export const Select: React.FC<SelectProps> = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleOptionSelect = useCallback((value: string) => {
+    if (!isControlled) {
+      setUncontrolledValue(value);
+    }
+    onChange?.(value);
+    setOpen(false);
+    buttonRef.current?.focus();
+  }, [isControlled, onChange]);
+
   // Close on outside click
   useEffect(() => {
     if (!open) return;
@@ -131,7 +140,7 @@ export const Select: React.FC<SelectProps> = ({
     return () => {
       listbox.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open, options]);
+  }, [open, handleOptionSelect]);
 
   // Scroll to selected option when opening
   useEffect(() => {
@@ -142,15 +151,6 @@ export const Select: React.FC<SelectProps> = ({
       }
     }
   }, [open, currentValue]);
-
-  const handleOptionSelect = (value: string) => {
-    if (!isControlled) {
-      setUncontrolledValue(value);
-    }
-    onChange?.(value);
-    setOpen(false);
-    buttonRef.current?.focus();
-  };
 
   const selectId = useId();
   const helperId = `${selectId}-helper`;
@@ -195,7 +195,6 @@ export const Select: React.FC<SelectProps> = ({
           id={selectId}
           className={buttonClassNames}
           disabled={disabled}
-          aria-invalid={hasError}
           aria-haspopup="listbox"
           aria-expanded={open}
           aria-describedby={hasError ? errorId : helperText ? helperId : undefined}

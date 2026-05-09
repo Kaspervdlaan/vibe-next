@@ -87,7 +87,7 @@ export const Quote: React.FC<QuoteProps> = ({
             align={layout === 'vertical' ? 'center' : 'left'}
             className="quote__text"
           >
-            "{quote}"
+            &quot;{quote}&quot;
           </Typography>
 
           {/* Author Section */}

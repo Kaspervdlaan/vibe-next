@@ -72,7 +72,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   };
 
   return (
-    <Box className={classNames} display="flex" direction="column" gap="sm">
+    <Box className={classNames} display="flex" direction="column" gap="sm" {...props}>
       {label && (
         <Typography
           variant="caption"

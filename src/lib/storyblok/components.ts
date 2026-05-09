@@ -3,6 +3,8 @@
 // ============================================================================
 // Maps Storyblok component names to React components
 
+import type { SbReactComponentsMap } from '@storyblok/react';
+
 import {
   SbDivider,
   SbPage,
@@ -25,7 +27,7 @@ import {
  * Component mapping for Storyblok
  * Keys should match the technical names of your Storyblok components
  */
-export const components: Record<string, React.ComponentType<any>> = {
+export const components: SbReactComponentsMap = {
   // Divider
   divider: SbDivider,
   Divider: SbDivider,

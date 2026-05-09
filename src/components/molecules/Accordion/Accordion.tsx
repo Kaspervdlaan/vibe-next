@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useState, useCallback, useId } from 'react';
+import React, { createContext, useContext, useState, useCallback, useId, useMemo } from 'react';
 import { Box } from '../../atoms/Box';
-import { Typography } from '../../atoms/Typography';
 import { Icon } from '../../atoms/Icon';
 import './_accordion.scss';
 
@@ -148,9 +147,12 @@ export const Accordion: React.FC<AccordionProps> & {
   const [internalExpanded, setInternalExpanded] = useState<string[]>(getInitialExpanded);
   
   const isControlled = controlledExpanded !== undefined;
-  const expandedItems = isControlled 
-    ? (Array.isArray(controlledExpanded) ? controlledExpanded : [controlledExpanded])
-    : internalExpanded;
+  const expandedItems = useMemo(() => {
+    if (isControlled) {
+      return Array.isArray(controlledExpanded) ? controlledExpanded : [controlledExpanded];
+    }
+    return internalExpanded;
+  }, [isControlled, controlledExpanded, internalExpanded]);
 
   const toggleItem = useCallback((value: string) => {
     const newExpanded = expandedItems.includes(value)

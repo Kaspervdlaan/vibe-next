@@ -57,7 +57,6 @@ export const Tabs: React.FC<TabsProps> = ({
   };
 
   const currentTab = items.find((item) => item.value === currentValue);
-  const currentIndex = items.findIndex((item) => item.value === currentValue);
 
   const classNames = [
     'tabs',
