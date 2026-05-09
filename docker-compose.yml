@@ -10,7 +10,12 @@ services:
       NODE_ENV: production
       PORT: 3000
       NEXT_PUBLIC_STORYBLOK_API_TOKEN: ${NEXT_PUBLIC_STORYBLOK_API_TOKEN}
-      STORY_API_URL: ${STORY_API_URL:-http://host.docker.internal:8000/api/story}
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      STORY_API_URL: ${STORY_API_URL:-http://laravel-proxy:8000/api/story}
+    networks:
+      - vibe-network
     restart: unless-stopped
+
+networks:
+  vibe-network:
+    external: true
+    name: vibe-network
