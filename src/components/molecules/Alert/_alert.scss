@@ -1,0 +1,144 @@
+// ============================================================================
+// ALERT COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+  border: $border-default;
+  border-radius: var(--radius-md);
+  box-shadow: $shadow-sm;
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.alert--sm {
+  padding: $space-2 $space-3;
+  font-size: var(--font-size-caption);
+
+  .alert__icon {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.alert--md {
+  padding: $space-3 $space-4;
+  font-size: var(--font-size-body-sm);
+
+  .alert__icon {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.alert--lg {
+  padding: $space-4 $space-6;
+  font-size: var(--font-size-body);
+
+  .alert__icon {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.alert--info {
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-secondary);
+  color: var(--color-text);
+
+  .alert__icon {
+    color: var(--color-secondary);
+  }
+}
+
+.alert--success {
+  background-color: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
+  border-color: var(--color-success);
+  color: var(--color-text);
+
+  .alert__icon {
+    color: var(--color-success);
+  }
+}
+
+.alert--warning {
+  background-color: color-mix(in srgb, var(--color-warning) 10%, var(--color-surface));
+  border-color: var(--color-warning);
+  color: var(--color-text);
+
+  .alert__icon {
+    color: var(--color-warning);
+  }
+}
+
+.alert--error {
+  background-color: color-mix(in srgb, var(--color-danger) 10%, var(--color-surface));
+  border-color: var(--color-danger);
+  color: var(--color-text);
+
+  .alert__icon {
+    color: var(--color-danger);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// ELEMENTS
+// ----------------------------------------------------------------------------
+
+.alert__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.alert__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.alert__title {
+  margin: 0;
+}
+
+.alert__message {
+  margin: 0;
+}
+
+.alert__close {
+  flex-shrink: 0;
+  min-width: auto;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+

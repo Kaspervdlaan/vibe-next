@@ -1,0 +1,66 @@
+// ============================================================================
+// SECTION COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.section {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// SPACING
+// ----------------------------------------------------------------------------
+
+.section--spacing-sm {
+  padding-top: $space-8;
+  padding-bottom: $space-8;
+}
+
+.section--spacing-md {
+  padding-top: $space-12;
+  padding-bottom: $space-12;
+}
+
+.section--spacing-lg {
+  padding-top: $space-16;
+  padding-bottom: $space-16;
+}
+
+.section--spacing-xl {
+  padding-top: $space-24;
+  padding-bottom: $space-24;
+}
+
+// ----------------------------------------------------------------------------
+// BACKGROUNDS
+// ----------------------------------------------------------------------------
+
+.section--bg-none {
+  background-color: transparent;
+}
+
+.section--bg-subtle {
+  background-color: $color-surface-muted;
+}
+
+.section--bg-primary {
+  background-color: $color-primary;
+  color: $color-on-primary;
+}
+
+.section--bg-dark {
+  background-color: $color-rich-black;
+  color: $color-champagne;
+}
+
+.section--bg-secondary {
+  background-color: $color-secondary;
+  color: $color-on-secondary;
+}
+

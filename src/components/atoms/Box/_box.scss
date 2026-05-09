@@ -1,0 +1,149 @@
+// ============================================================================
+// BOX COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.box {
+  // Base box has no default styles, it's a blank canvas
+}
+
+// ----------------------------------------------------------------------------
+// PADDING
+// ----------------------------------------------------------------------------
+
+.box--p-none { padding: $space-0; }
+.box--p-xs { padding: $space-1; }
+.box--p-sm { padding: $space-2; }
+.box--p-md { padding: $space-4; }
+.box--p-lg { padding: $space-6; }
+.box--p-xl { padding: $space-8; }
+
+.box--px-none { padding-left: $space-0; padding-right: $space-0; }
+.box--px-xs { padding-left: $space-1; padding-right: $space-1; }
+.box--px-sm { padding-left: $space-2; padding-right: $space-2; }
+.box--px-md { padding-left: $space-4; padding-right: $space-4; }
+.box--px-lg { padding-left: $space-6; padding-right: $space-6; }
+.box--px-xl { padding-left: $space-8; padding-right: $space-8; }
+
+.box--py-none { padding-top: $space-0; padding-bottom: $space-0; }
+.box--py-xs { padding-top: $space-1; padding-bottom: $space-1; }
+.box--py-sm { padding-top: $space-2; padding-bottom: $space-2; }
+.box--py-md { padding-top: $space-4; padding-bottom: $space-4; }
+.box--py-lg { padding-top: $space-6; padding-bottom: $space-6; }
+.box--py-xl { padding-top: $space-8; padding-bottom: $space-8; }
+
+// ----------------------------------------------------------------------------
+// DISPLAY
+// ----------------------------------------------------------------------------
+
+.box--display-block { display: block; }
+.box--display-flex { display: flex; }
+.box--display-inline-flex { display: inline-flex; }
+.box--display-grid { display: grid; }
+.box--display-inline-block { display: inline-block; }
+.box--display-none { display: none; }
+
+// ----------------------------------------------------------------------------
+// POSITION
+// ----------------------------------------------------------------------------
+
+.box--position-static { position: static; }
+.box--position-relative { position: relative; }
+.box--position-absolute { position: absolute; }
+.box--position-fixed { position: fixed; }
+.box--position-sticky { position: sticky; }
+
+// ----------------------------------------------------------------------------
+// OVERFLOW
+// ----------------------------------------------------------------------------
+
+.box--overflow-visible { overflow: visible; }
+.box--overflow-hidden { overflow: hidden; }
+.box--overflow-scroll { overflow: scroll; }
+.box--overflow-auto { overflow: auto; }
+
+// ----------------------------------------------------------------------------
+// FLEX DIRECTION
+// ----------------------------------------------------------------------------
+
+.box--direction-row { flex-direction: row; }
+.box--direction-column { flex-direction: column; }
+.box--direction-row-reverse { flex-direction: row-reverse; }
+.box--direction-column-reverse { flex-direction: column-reverse; }
+
+// ----------------------------------------------------------------------------
+// ALIGN ITEMS
+// ----------------------------------------------------------------------------
+
+.box--align-start { align-items: flex-start; }
+.box--align-center { align-items: center; }
+.box--align-end { align-items: flex-end; }
+.box--align-stretch { align-items: stretch; }
+.box--align-baseline { align-items: baseline; }
+
+// ----------------------------------------------------------------------------
+// JUSTIFY CONTENT
+// ----------------------------------------------------------------------------
+
+.box--justify-start { justify-content: flex-start; }
+.box--justify-center { justify-content: center; }
+.box--justify-end { justify-content: flex-end; }
+.box--justify-between { justify-content: space-between; }
+.box--justify-around { justify-content: space-around; }
+.box--justify-evenly { justify-content: space-evenly; }
+
+// ----------------------------------------------------------------------------
+// GAP
+// ----------------------------------------------------------------------------
+
+.box--gap-none { gap: $space-0; }
+.box--gap-xs { gap: $space-1; }
+.box--gap-sm { gap: $space-2; }
+.box--gap-md { gap: $space-4; }
+.box--gap-lg { gap: $space-6; }
+.box--gap-xl { gap: $space-8; }
+
+// ----------------------------------------------------------------------------
+// BORDER RADIUS
+// ----------------------------------------------------------------------------
+
+.box--radius-none { @include squircle($radius-none); }
+.box--radius-sm { @include squircle($radius-sm); }
+.box--radius-md { @include squircle($radius-md); }
+.box--radius-lg { @include squircle($radius-lg); }
+.box--radius-xl { @include squircle($radius-xl); }
+.box--radius-full { border-radius: 50%; }
+
+// ----------------------------------------------------------------------------
+// BACKGROUND
+// ----------------------------------------------------------------------------
+
+.box--bg-none { background-color: transparent; }
+.box--bg-surface { background-color: $color-surface; }
+.box--bg-muted { background-color: $color-surface-muted; }
+.box--bg-primary { background-color: $color-primary; color: $color-on-primary; }
+.box--bg-secondary { background-color: $color-secondary; color: $color-on-secondary; }
+.box--bg-dark { background-color: $color-surface-dark; color: $color-text-inverse; }
+
+// ----------------------------------------------------------------------------
+// BORDER
+// ----------------------------------------------------------------------------
+
+.box--border-none { border: none; }
+.box--border-default { border: $border-default; }
+.box--border-muted { border: $border-width-sm solid $color-border-muted; }
+
+// ----------------------------------------------------------------------------
+// SHADOW
+// ----------------------------------------------------------------------------
+
+.box--shadow-none { box-shadow: none; }
+.box--shadow-sm { box-shadow: $shadow-sm; }
+.box--shadow-md { box-shadow: $shadow-md; }
+.box--shadow-lg { box-shadow: $shadow-lg; }

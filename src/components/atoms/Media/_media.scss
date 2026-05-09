@@ -1,0 +1,147 @@
+// ============================================================================
+// MEDIA COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.media {
+  position: relative;
+  overflow: hidden;
+  background-color: $color-surface-muted;
+}
+
+.media__image,
+.media__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  @include squircle($radius-md);
+}
+
+// ----------------------------------------------------------------------------
+// ASPECT RATIOS
+// ----------------------------------------------------------------------------
+
+.media--aspect-auto {
+  .media__image,
+  .media__video {
+    height: auto;
+  }
+}
+
+.media--aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.media--aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.media--aspect-wide {
+  aspect-ratio: 21 / 9;
+}
+
+.media--aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+// ----------------------------------------------------------------------------
+// OBJECT FIT
+// ----------------------------------------------------------------------------
+
+.media--fit-cover {
+  .media__image,
+  .media__video {
+    object-fit: cover;
+  }
+}
+
+.media--fit-contain {
+  .media__image,
+  .media__video {
+    object-fit: contain;
+  }
+}
+
+.media--fit-fill {
+  .media__image,
+  .media__video {
+    object-fit: fill;
+  }
+}
+
+.media--fit-none {
+  .media__image,
+  .media__video {
+    object-fit: none;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// BORDER RADIUS
+// ----------------------------------------------------------------------------
+
+.media--radius-none {
+  @include squircle($radius-none);
+}
+
+.media--radius-sm {
+  @include squircle($radius-sm);
+}
+
+.media--radius-md {
+  @include squircle($radius-md);
+}
+
+.media--radius-lg {
+  @include squircle($radius-lg);
+}
+
+.media--radius-xl {
+  @include squircle($radius-xl);
+}
+
+// ----------------------------------------------------------------------------
+// VIDEO SPECIFIC
+// ----------------------------------------------------------------------------
+
+.media__video {
+  &::-webkit-media-controls-panel {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+  }
+}
+
+// ----------------------------------------------------------------------------
+// LOADING STATE
+// ----------------------------------------------------------------------------
+
+.media--loading {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      $color-surface-muted 0%,
+      $color-neutral-100 50%,
+      $color-surface-muted 100%
+    );
+    background-size: 200% 100%;
+    animation: media-shimmer 1.5s infinite;
+  }
+}
+
+@keyframes media-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+

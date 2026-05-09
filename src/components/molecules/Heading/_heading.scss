@@ -1,0 +1,112 @@
+// ============================================================================
+// HEADING COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.heading {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// ALIGNMENT
+// ----------------------------------------------------------------------------
+
+.heading--left {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.heading--center {
+  text-align: center;
+  align-items: center;
+}
+
+.heading--right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.heading--sm {
+  .heading__subtitle {
+    max-width: 480px;
+  }
+}
+
+.heading--md {
+  .heading__subtitle {
+    max-width: 560px;
+  }
+}
+
+.heading--lg {
+  .heading__subtitle {
+    max-width: 640px;
+  }
+}
+
+.heading--xl {
+  .heading__subtitle {
+    max-width: 720px;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// EYEBROW
+// ----------------------------------------------------------------------------
+
+.heading__eyebrow {
+  letter-spacing: $letter-spacing-ultra-wide;
+}
+
+.heading__eyebrow--primary {
+  color: $color-primary;
+}
+
+.heading__eyebrow--secondary {
+  color: $color-secondary;
+}
+
+.heading__eyebrow--muted {
+  color: $color-text-muted;
+}
+
+// ----------------------------------------------------------------------------
+// TITLE
+// ----------------------------------------------------------------------------
+
+.heading__title {
+  letter-spacing: $letter-spacing-tight;
+}
+
+// ----------------------------------------------------------------------------
+// SUBTITLE
+// ----------------------------------------------------------------------------
+
+.heading__subtitle {
+  line-height: $line-height-body;
+}
+
+// Center alignment needs auto margins for max-width constraint
+.heading--center {
+  .heading__subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.heading--right {
+  .heading__subtitle {
+    margin-left: auto;
+  }
+}
+

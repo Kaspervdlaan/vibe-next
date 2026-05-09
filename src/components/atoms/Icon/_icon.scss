@@ -1,0 +1,196 @@
+// ============================================================================
+// ICON COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.icon {
+  flex-shrink: 0;
+  
+  svg {
+    display: block;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.icon--xs {
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.icon--sm {
+  width: 40px;
+  height: 40px;
+  font-size: 1.25rem;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.icon--md {
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.icon--lg {
+  width: 64px;
+  height: 64px;
+  font-size: 2rem;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.icon--xl {
+  width: 80px;
+  height: 80px;
+  font-size: 2.5rem;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+// Filled - solid background with icon color
+.icon--filled {
+  border: $border-default;
+
+  &.icon--primary {
+    background-color: $color-primary;
+    color: $color-on-primary;
+  }
+
+  &.icon--secondary {
+    background-color: $color-secondary;
+    color: $color-on-secondary;
+  }
+
+  &.icon--danger {
+    background-color: $color-danger;
+    color: $color-on-danger;
+  }
+
+  &.icon--success {
+    background-color: $color-success;
+    color: $color-on-success;
+  }
+
+  &.icon--warning {
+    background-color: $color-warning;
+    color: $color-on-warning;
+  }
+
+  &.icon--neutral {
+    background-color: $color-neutral-100;
+    color: $color-text;
+  }
+
+  &.icon--dark {
+    background-color: $color-surface-dark;
+    color: $color-text-inverse;
+  }
+}
+
+// Outlined - transparent background with colored border
+.icon--outlined {
+  background-color: transparent;
+
+  &.icon--primary {
+    border: $border-width-md solid $color-primary;
+    color: $color-primary;
+  }
+
+  &.icon--secondary {
+    border: $border-width-md solid $color-secondary;
+    color: $color-secondary;
+  }
+
+  &.icon--danger {
+    border: $border-width-md solid $color-danger;
+    color: $color-danger;
+  }
+
+  &.icon--success {
+    border: $border-width-md solid $color-success;
+    color: $color-success;
+  }
+
+  &.icon--warning {
+    border: $border-width-md solid $color-warning;
+    color: $color-warning;
+  }
+
+  &.icon--neutral {
+    border: $border-width-md solid $color-border-muted;
+    color: $color-text;
+  }
+
+  &.icon--dark {
+    border: $border-width-md solid $color-border;
+    color: $color-text;
+  }
+}
+
+// Ghost - no background or border, just the icon
+.icon--ghost {
+  background-color: transparent;
+  border: none;
+
+  &.icon--primary {
+    color: $color-primary;
+  }
+
+  &.icon--secondary {
+    color: $color-secondary;
+  }
+
+  &.icon--danger {
+    color: $color-danger;
+  }
+
+  &.icon--success {
+    color: $color-success;
+  }
+
+  &.icon--warning {
+    color: $color-warning;
+  }
+
+  &.icon--neutral {
+    color: $color-text-muted;
+  }
+
+  &.icon--dark {
+    color: $color-text;
+  }
+}
+

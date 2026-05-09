@@ -1,0 +1,149 @@
+// ============================================================================
+// TABS COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.tabs {
+  display: flex;
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// ORIENTATION
+// ----------------------------------------------------------------------------
+
+.tabs--horizontal {
+  flex-direction: column;
+
+  .tabs__list {
+    border-bottom: $border-default;
+  }
+}
+
+.tabs--vertical {
+  flex-direction: row;
+  align-items: flex-start;
+
+  .tabs__list {
+    border-right: $border-default;
+    min-width: 200px;
+  }
+
+  .tabs__panel {
+    flex: 1;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// TAB LIST
+// ----------------------------------------------------------------------------
+
+.tabs__list {
+  display: flex;
+  gap: $space-1;
+  flex-shrink: 0;
+}
+
+// ----------------------------------------------------------------------------
+// TAB BUTTON
+// ----------------------------------------------------------------------------
+
+.tabs__tab {
+  @include reset-button;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-2 $space-4;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: 
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-surface-muted);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+    z-index: 1;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.tabs--sm {
+  .tabs__tab {
+    padding: $space-1 $space-3;
+    font-size: var(--font-size-caption);
+  }
+}
+
+.tabs--md {
+  .tabs__tab {
+    padding: $space-2 $space-4;
+    font-size: var(--font-size-body-sm);
+  }
+}
+
+.tabs--lg {
+  .tabs__tab {
+    padding: $space-3 $space-6;
+    font-size: var(--font-size-body);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// ACTIVE STATE
+// ----------------------------------------------------------------------------
+
+.tabs__tab--active {
+  border-bottom-color: var(--color-primary);
+  color: var(--color-primary);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+  }
+}
+
+.tabs--vertical .tabs__tab--active {
+  border-bottom: none;
+  border-right: 3px solid var(--color-primary);
+
+  &::after {
+    display: none;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// PANEL
+// ----------------------------------------------------------------------------
+
+.tabs__panel {
+  flex: 1;
+  min-width: 0;
+}
+

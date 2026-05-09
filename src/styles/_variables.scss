@@ -1,0 +1,218 @@
+// ============================================================================
+// VIBE DESIGN SYSTEM - NEOBRUTALIST TOKENS
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// TYPOGRAPHY TOKENS
+// ----------------------------------------------------------------------------
+
+// Font Families - Bold, distinctive choices for neobrutalism
+$font-family-sans: 'Space Mono', 'JetBrains Mono', 'Courier New', monospace;
+$font-family-mono: 'IBM Plex Mono', 'Fira Code', 'Consolas', monospace;
+
+// Font Sizes - Chunky, impactful scale
+$font-size-display: 4rem;      // 64px - Hero headlines
+$font-size-h1: 3rem;           // 48px
+$font-size-h2: 2.25rem;        // 36px
+$font-size-h3: 1.5rem;         // 24px
+$font-size-body: 1.125rem;     // 18px
+$font-size-body-sm: 1rem;      // 16px
+$font-size-caption: 0.875rem;  // 14px
+
+// Font Weights - Strong emphasis
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Heights - Tight for impact
+$line-height-display: 1.1;
+$line-height-heading: 1.2;
+$line-height-body: 1.6;
+$line-height-tight: 1.3;
+$line-height-relaxed: 1.8;
+
+// Letter Spacing
+$letter-spacing-tight: -0.02em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.05em;
+$letter-spacing-ultra-wide: 0.1em;
+
+// ----------------------------------------------------------------------------
+// COLOR TOKENS - WARM-TO-COOL PALETTE
+// Based on: https://coolors.co/001219-005f73-0a9396-94d2bd-e9d8a6-ee9b00-ca6702-bb3e03-ae2012-9b2226
+// ----------------------------------------------------------------------------
+
+// Core palette colors
+$color-rich-black: #001219;
+$color-dark-cyan: #005f73;
+$color-viridian: #0a9396;
+$color-mint: #94d2bd;
+$color-champagne: #e9d8a6;
+$color-gamboge: #ee9b00;
+$color-alloy-orange: #ca6702;
+$color-rust: #bb3e03;
+$color-rufous: #ae2012;
+$color-auburn: #9b2226;
+
+// Core Black & White
+$color-black: $color-rich-black;
+$color-white: #ffffff;
+
+// Brand Primary - Gamboge (warm orange)
+$color-primary: $color-gamboge;
+$color-primary-hover: #f5ad2a;
+$color-primary-active: $color-alloy-orange;
+$color-on-primary: $color-rich-black;
+
+// Secondary - Viridian (teal)
+$color-secondary: $color-viridian;
+$color-secondary-hover: #1ca8ab;
+$color-secondary-active: $color-dark-cyan;
+$color-on-secondary: $color-white;
+
+// Neutrals Scale - Based on rich black to champagne
+$color-neutral-0: #ffffff;
+$color-neutral-50: #f7f4ed;
+$color-neutral-100: $color-champagne;
+$color-neutral-200: #c9bfa0;
+$color-neutral-300: #8a8477;
+$color-neutral-400: #5c5a52;
+$color-neutral-500: #3d3d38;
+$color-neutral-600: #2a2d2e;
+$color-neutral-700: #1a2023;
+$color-neutral-800: #0d1518;
+$color-neutral-900: $color-rich-black;
+
+// Semantic Colors
+$color-danger: $color-rufous;
+$color-danger-hover: #c4342a;
+$color-danger-active: $color-auburn;
+$color-on-danger: $color-white;
+
+$color-success: $color-viridian;
+$color-success-hover: #1ca8ab;
+$color-success-active: $color-dark-cyan;
+$color-on-success: $color-white;
+
+$color-warning: $color-rust;
+$color-warning-hover: $color-alloy-orange;
+$color-warning-active: #a33502;
+$color-on-warning: $color-white;
+
+// Surface Colors
+$color-surface: $color-white;
+$color-surface-muted: #f7f4ed;
+$color-surface-dark: $color-rich-black;
+$color-border: $color-rich-black;
+$color-border-muted: #c9bfa0;
+$color-text: $color-rich-black;
+$color-text-muted: #5c5a52;
+$color-text-inverse: $color-champagne;
+
+// Accent Colors - Full palette for variety
+$color-accent-dark-cyan: $color-dark-cyan;
+$color-accent-viridian: $color-viridian;
+$color-accent-mint: $color-mint;
+$color-accent-champagne: $color-champagne;
+$color-accent-gamboge: $color-gamboge;
+$color-accent-alloy: $color-alloy-orange;
+$color-accent-rust: $color-rust;
+$color-accent-rufous: $color-rufous;
+$color-accent-auburn: $color-auburn;
+
+// ----------------------------------------------------------------------------
+// SPACING TOKENS
+// ----------------------------------------------------------------------------
+
+$space-0: 0;
+$space-1: 0.25rem;   // 4px
+$space-2: 0.5rem;    // 8px
+$space-3: 0.75rem;   // 12px
+$space-4: 1rem;      // 16px
+$space-5: 1.25rem;   // 20px
+$space-6: 1.5rem;    // 24px
+$space-8: 2rem;      // 32px
+$space-10: 2.5rem;   // 40px
+$space-12: 3rem;     // 48px
+$space-16: 4rem;     // 64px
+$space-20: 5rem;     // 80px
+$space-24: 6rem;     // 96px
+
+// ----------------------------------------------------------------------------
+// BORDER RADIUS TOKENS
+// ----------------------------------------------------------------------------
+
+$radius-none: 0;
+$radius-xs: 0.25rem;   // 4px
+$radius-sm: 0.4rem;    // ~6px
+$radius-md: 0.6rem;    // ~10px - DEFAULT
+$radius-lg: 0.8rem;    // ~13px
+$radius-xl: 1rem;      // 16px
+$radius-2xl: 1.5rem;   // 24px
+$radius-full: 9999px;
+
+// ----------------------------------------------------------------------------
+// BORDER SHAPE TOKENS
+// ----------------------------------------------------------------------------
+
+$border-shape-none: none;
+$border-shape-bevel: bevel;
+$border-shape-squircle: squircle;
+
+// Default border shape
+$border-shape-default: $border-shape-squircle;
+
+// ----------------------------------------------------------------------------
+// SHADOW TOKENS - Heavy, offset shadows (neobrutalist signature)
+// ----------------------------------------------------------------------------
+
+$shadow-sm: 2px 2px 0 0 $color-black;
+$shadow-md: 4px 4px 0 0 $color-black;
+$shadow-lg: 6px 6px 0 0 $color-black;
+$shadow-xl: 8px 8px 0 0 $color-black;
+
+// Colored shadows for accents
+$shadow-primary: 4px 4px 0 0 $color-primary;
+$shadow-secondary: 4px 4px 0 0 $color-secondary;
+$shadow-danger: 4px 4px 0 0 $color-danger;
+
+// ----------------------------------------------------------------------------
+// BORDER TOKENS - Thick, bold borders
+// ----------------------------------------------------------------------------
+
+$border-width-sm: 2px;
+$border-width-md: 3px;
+$border-width-lg: 4px;
+$border-width-xl: 6px;
+
+$border-default: $border-width-md solid $color-border;
+$border-thick: $border-width-lg solid $color-border;
+
+// ----------------------------------------------------------------------------
+// SIZING TOKENS - Container widths
+// ----------------------------------------------------------------------------
+
+$container-sm: 640px;
+$container-md: 768px;
+$container-lg: 1024px;
+$container-xl: 1280px;
+$container-2xl: 1536px;
+
+// ----------------------------------------------------------------------------
+// TRANSITION TOKENS
+// ----------------------------------------------------------------------------
+
+$transition-fast: 100ms ease;
+$transition-base: 150ms ease;
+$transition-slow: 300ms ease;
+
+// ----------------------------------------------------------------------------
+// Z-INDEX SCALE
+// ----------------------------------------------------------------------------
+
+$z-index-dropdown: 100;
+$z-index-sticky: 200;
+$z-index-modal: 300;
+$z-index-tooltip: 400;
+

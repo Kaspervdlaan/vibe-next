@@ -1,0 +1,350 @@
+// ============================================================================
+// VIBE DESIGN SYSTEM - THEME DEFINITIONS
+// ============================================================================
+// Two themes: Neobrutalist (default) and Earthy Natural
+// Themes are applied via CSS custom properties on [data-theme] attribute
+
+@use "variables" as *;
+
+// ============================================================================
+// THEME: NEOBRUTALIST (DEFAULT)
+// Bold, chunky, unapologetic design with heavy borders and offset shadows
+// ============================================================================
+
+:root,
+[data-theme="neobrutalist"] {
+  // Typography - Sora for a bold, geometric neobrutalist look
+  --font-family-sans: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-mono: 'IBM Plex Mono', 'Fira Code', 'Consolas', monospace;
+  --font-family-display: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --font-size-display: 4rem;
+  --font-size-h1: 3rem;
+  --font-size-h2: 2.25rem;
+  --font-size-h3: 1.5rem;
+  --font-size-body: 1.125rem;
+  --font-size-body-sm: 1rem;
+  --font-size-caption: 0.875rem;
+  
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-display: 1.1;
+  --line-height-heading: 1.2;
+  --line-height-body: 1.6;
+  
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  
+  // Colors - Warm-to-cool palette
+  --color-rich-black: #001219;
+  --color-dark-cyan: #005f73;
+  --color-viridian: #0a9396;
+  --color-mint: #94d2bd;
+  --color-champagne: #e9d8a6;
+  --color-gamboge: #ee9b00;
+  --color-alloy-orange: #ca6702;
+  --color-rust: #bb3e03;
+  --color-rufous: #ae2012;
+  --color-auburn: #9b2226;
+  
+  --color-black: #001219;
+  --color-white: #ffffff;
+  
+  // Brand Colors
+  --color-primary: #ee9b00;
+  --color-primary-hover: #f5ad2a;
+  --color-primary-active: #ca6702;
+  --color-on-primary: #001219;
+  
+  --color-secondary: #0a9396;
+  --color-secondary-hover: #1ca8ab;
+  --color-secondary-active: #005f73;
+  --color-on-secondary: #ffffff;
+  
+  // Neutrals
+  --color-neutral-50: #f7f4ed;
+  --color-neutral-100: #e9d8a6;
+  --color-neutral-200: #c9bfa0;
+  --color-neutral-300: #8a8477;
+  --color-neutral-400: #5c5a52;
+  --color-neutral-500: #3d3d38;
+  --color-neutral-600: #2a2d2e;
+  --color-neutral-700: #1a2023;
+  --color-neutral-800: #0d1518;
+  --color-neutral-900: #001219;
+  
+  // Semantic Colors
+  --color-success: #0a9396;
+  --color-success-hover: #1ca8ab;
+  --color-on-success: #ffffff;
+  
+  --color-danger: #ae2012;
+  --color-danger-hover: #c4342a;
+  --color-on-danger: #ffffff;
+  
+  --color-warning: #bb3e03;
+  --color-warning-hover: #ca6702;
+  --color-on-warning: #ffffff;
+  
+  // Surface & Background
+  --color-surface: #ffffff;
+  --color-surface-muted: #f7f4ed;
+  --color-surface-dark: #001219;
+  --color-background: #ffffff;
+  --color-background-subtle: #f7f4ed;
+  
+  // Border & Text
+  --color-border: #001219;
+  --color-border-muted: #c9bfa0;
+  --color-text: #001219;
+  --color-text-muted: #5c5a52;
+  --color-text-inverse: #e9d8a6;
+  
+  // Border Width - Heavy, bold
+  --border-width-sm: 2px;
+  --border-width-md: 3px;
+  --border-width-lg: 4px;
+  --border-width-xl: 6px;
+  --border-width-default: 3px;
+  
+  // Border Radius - Squircle corners
+  --radius-none: 0;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.4rem;
+  --radius-md: 0.6rem;
+  --radius-lg: 0.8rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  --radius-default: 0.6rem;
+  
+  // Shadows - Hard offset (neobrutalist signature)
+  --shadow-sm: 2px 2px 0 0 var(--color-black);
+  --shadow-md: 4px 4px 0 0 var(--color-black);
+  --shadow-lg: 6px 6px 0 0 var(--color-black);
+  --shadow-xl: 8px 8px 0 0 var(--color-black);
+  --shadow-soft: none;
+  
+  // Focus Ring
+  --focus-ring-color: var(--color-primary);
+  --focus-ring-offset: 2px;
+  --focus-ring-width: 3px;
+  --focus-ring-style: solid;
+  
+  // Transitions
+  --transition-fast: 100ms ease;
+  --transition-base: 150ms ease;
+  --transition-slow: 300ms ease;
+  
+  // Component-specific
+  --button-border-width: 3px;
+  --card-border-width: 3px;
+  --input-border-width: 3px;
+}
+
+// ============================================================================
+// THEME: EARTHY NATURAL
+// Warm, organic design with nature-inspired earthy tones
+// Palette: dusty olive, palm leaf, khaki, desert sand, golden pollen
+// ============================================================================
+
+[data-theme="earthy"] {
+  // Typography - Organic, warm feel
+  --font-family-sans: 'DM Sans', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-mono: 'DM Mono', 'Fira Code', 'Monaco', monospace;
+  --font-family-display: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+  
+  --font-size-display: 3.5rem;
+  --font-size-h1: 2.75rem;
+  --font-size-h2: 2rem;
+  --font-size-h3: 1.375rem;
+  --font-size-body: 1.0625rem;
+  --font-size-body-sm: 0.9375rem;
+  --font-size-caption: 0.8125rem;
+  
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-display: 1.15;
+  --line-height-heading: 1.25;
+  --line-height-body: 1.7;
+  
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.03em;
+  
+  // Colors - Earthy palette
+  --color-dusty-olive: #797d62;
+  --color-palm-leaf: #9b9b7a;
+  --color-khaki-beige: #baa587;
+  --color-desert-sand: #d9ae94;
+  --color-soft-peach: #f1dca7;
+  --color-golden-pollen: #ffcb69;
+  --color-sunlit-clay: #e8ac65;
+  --color-toasted-almond: #d08c60;
+  --color-faded-copper: #b58463;
+  --color-dusty-taupe: #997b66;
+  
+  --color-black: #4a4d3d;
+  --color-white: #fffdf8;
+  
+  // Legacy color mapping for compatibility
+  --color-rich-black: #4a4d3d;
+  --color-dark-cyan: #797d62;
+  --color-viridian: #9b9b7a;
+  --color-mint: #d9ae94;
+  --color-champagne: #f1dca7;
+  --color-gamboge: #ffcb69;
+  --color-alloy-orange: #e8ac65;
+  --color-rust: #d08c60;
+  --color-rufous: #b58463;
+  --color-auburn: #997b66;
+  
+  // Brand Colors - Golden pollen as primary
+  --color-primary: #ffcb69;
+  --color-primary-hover: #ffd589;
+  --color-primary-active: #e8ac65;
+  --color-on-primary: #4a4d3d;
+  
+  // Secondary - Toasted almond/terracotta
+  --color-secondary: #d08c60;
+  --color-secondary-hover: #b58463;
+  --color-secondary-active: #997b66;
+  --color-on-secondary: #fffdf8;
+  
+  // Neutrals - Warm earthy scale
+  --color-neutral-50: #fffdf8;
+  --color-neutral-100: #f8f3e8;
+  --color-neutral-200: #f1dca7;
+  --color-neutral-300: #d9ae94;
+  --color-neutral-400: #baa587;
+  --color-neutral-500: #9b9b7a;
+  --color-neutral-600: #797d62;
+  --color-neutral-700: #5c5f4a;
+  --color-neutral-800: #4a4d3d;
+  --color-neutral-900: #3a3c30;
+  
+  // Semantic Colors
+  --color-success: #9b9b7a;
+  --color-success-hover: #8a8a6c;
+  --color-on-success: #fffdf8;
+  
+  --color-danger: #b58463;
+  --color-danger-hover: #997b66;
+  --color-on-danger: #fffdf8;
+  
+  --color-warning: #e8ac65;
+  --color-warning-hover: #d08c60;
+  --color-on-warning: #4a4d3d;
+  
+  // Surface & Background
+  --color-surface: #fffdf8;
+  --color-surface-muted: #f8f3e8;
+  --color-surface-dark: #4a4d3d;
+  --color-background: #fffdf8;
+  --color-background-subtle: #f8f3e8;
+  
+  // Border & Text
+  --color-border: #baa587;
+  --color-border-muted: #d9ae94;
+  --color-text: #4a4d3d;
+  --color-text-muted: #797d62;
+  --color-text-inverse: #f1dca7;
+  
+  // Border Width - Medium, warm feel
+  --border-width-sm: 1.5px;
+  --border-width-md: 2px;
+  --border-width-lg: 3px;
+  --border-width-xl: 4px;
+  --border-width-default: 2px;
+  
+  // Border Radius - Soft, organic curves
+  --radius-none: 0;
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+  --radius-default: 0.75rem;
+  
+  // Shadows - Warm, earthy tinted
+  --shadow-sm: 0 1px 3px 0 rgb(74 77 61 / 0.08), 0 1px 2px -1px rgb(74 77 61 / 0.06);
+  --shadow-md: 0 4px 8px -2px rgb(74 77 61 / 0.1), 0 2px 4px -2px rgb(74 77 61 / 0.08);
+  --shadow-lg: 0 12px 20px -4px rgb(74 77 61 / 0.12), 0 4px 8px -4px rgb(74 77 61 / 0.08);
+  --shadow-xl: 0 24px 32px -8px rgb(74 77 61 / 0.14), 0 8px 16px -6px rgb(74 77 61 / 0.1);
+  --shadow-soft: 0 2px 4px 0 rgb(74 77 61 / 0.05);
+  
+  // Focus Ring
+  --focus-ring-color: var(--color-primary);
+  --focus-ring-offset: 2px;
+  --focus-ring-width: 2px;
+  --focus-ring-style: solid;
+  
+  // Transitions - Natural, smooth
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-slow: 350ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  // Component-specific
+  --button-border-width: 2px;
+  --card-border-width: 2px;
+  --input-border-width: 2px;
+}
+
+// ============================================================================
+// DARK MODE VARIANTS
+// ============================================================================
+
+[data-theme="neobrutalist"][data-mode="dark"],
+:root[data-mode="dark"] {
+  --color-surface: #001219;
+  --color-surface-muted: #0d1518;
+  --color-background: #001219;
+  --color-background-subtle: #0d1518;
+  --color-border: #e9d8a6;
+  --color-border-muted: #5c5a52;
+  --color-text: #e9d8a6;
+  --color-text-muted: #8a8477;
+  --color-text-inverse: #001219;
+  
+  --shadow-sm: 2px 2px 0 0 var(--color-champagne);
+  --shadow-md: 4px 4px 0 0 var(--color-champagne);
+  --shadow-lg: 6px 6px 0 0 var(--color-champagne);
+  --shadow-xl: 8px 8px 0 0 var(--color-champagne);
+}
+
+[data-theme="earthy"][data-mode="dark"] {
+  --color-surface: #3a3c30;
+  --color-surface-muted: #4a4d3d;
+  --color-background: #3a3c30;
+  --color-background-subtle: #4a4d3d;
+  --color-border: #797d62;
+  --color-border-muted: #5c5f4a;
+  --color-text: #f1dca7;
+  --color-text-muted: #baa587;
+  --color-text-inverse: #3a3c30;
+  
+  // Primary stays golden for warmth
+  --color-primary: #ffcb69;
+  --color-primary-hover: #ffd589;
+  --color-on-primary: #3a3c30;
+  
+  // Secondary lighter for contrast
+  --color-secondary: #d9ae94;
+  --color-secondary-hover: #e8c4ad;
+  --color-on-secondary: #3a3c30;
+  
+  // Shadows
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.25);
+  --shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.25);
+  --shadow-lg: 0 12px 20px -4px rgb(0 0 0 / 0.4), 0 4px 8px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 24px 32px -8px rgb(0 0 0 / 0.45), 0 8px 16px -6px rgb(0 0 0 / 0.35);
+}

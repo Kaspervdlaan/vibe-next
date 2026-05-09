@@ -1,0 +1,180 @@
+// ============================================================================
+// SLIDER COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// WRAPPER
+// ----------------------------------------------------------------------------
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.slider-wrapper--full-width {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// CONTAINER
+// ----------------------------------------------------------------------------
+
+.slider-container {
+  position: relative;
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// SLIDER INPUT
+// ----------------------------------------------------------------------------
+
+.slider {
+  width: 100%;
+  height: 8px;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+
+  &::-webkit-slider-track {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-surface-muted);
+    border: $border-default;
+    border-radius: var(--radius-full);
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-primary);
+    border: $border-default;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px;
+    box-shadow: $shadow-sm;
+    transition: 
+      transform var(--transition-fast),
+      background-color var(--transition-fast);
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: var(--color-primary-hover);
+    }
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-surface-muted);
+    border: $border-default;
+    border-radius: var(--radius-full);
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-primary);
+    border: $border-default;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: $shadow-sm;
+    transition: 
+      transform var(--transition-fast),
+      background-color var(--transition-fast);
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: var(--color-primary-hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      @include focus-ring;
+    }
+
+    &::-moz-range-thumb {
+      @include focus-ring;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &::-webkit-slider-thumb {
+      cursor: not-allowed;
+      background-color: var(--color-neutral-300);
+    }
+
+    &::-moz-range-thumb {
+      cursor: not-allowed;
+      background-color: var(--color-neutral-300);
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.slider--sm {
+  height: 6px;
+
+  &::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    margin-top: -5px;
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.slider--md {
+  height: 8px;
+
+  &::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    margin-top: -6px;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.slider--lg {
+  height: 12px;
+
+  &::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    margin-top: -6px;
+  }
+
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// HELPER TEXT
+// ----------------------------------------------------------------------------
+
+.slider-helper {
+  margin-top: $space-1;
+}
+

@@ -1,0 +1,124 @@
+// ============================================================================
+// HEADING SECTION COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.heading-section {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// SPACING
+// ----------------------------------------------------------------------------
+
+.heading-section--spacing-sm {
+  padding-top: $space-8;
+  padding-bottom: $space-8;
+}
+
+.heading-section--spacing-md {
+  padding-top: $space-12;
+  padding-bottom: $space-12;
+}
+
+.heading-section--spacing-lg {
+  padding-top: $space-16;
+  padding-bottom: $space-16;
+}
+
+.heading-section--spacing-xl {
+  padding-top: $space-24;
+  padding-bottom: $space-24;
+}
+
+// ----------------------------------------------------------------------------
+// BACKGROUNDS
+// ----------------------------------------------------------------------------
+
+.heading-section--bg-none {
+  background-color: transparent;
+}
+
+.heading-section--bg-subtle {
+  background-color: $color-surface-muted;
+}
+
+.heading-section--bg-dark {
+  background-color: $color-surface-dark;
+
+  .heading-section__heading {
+    .heading__title,
+    .heading__subtitle {
+      color: $color-text-inverse;
+    }
+
+    .heading__eyebrow {
+      color: $color-primary;
+    }
+  }
+}
+
+.heading-section--bg-primary {
+  background-color: $color-primary;
+
+  .heading-section__heading {
+    .heading__title,
+    .heading__subtitle,
+    .heading__eyebrow {
+      color: $color-on-primary;
+    }
+  }
+}
+
+.heading-section--bg-secondary {
+  background-color: $color-secondary;
+
+  .heading-section__heading {
+    .heading__title,
+    .heading__subtitle,
+    .heading__eyebrow {
+      color: $color-on-secondary;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// CONTENT
+// ----------------------------------------------------------------------------
+
+.heading-section__content {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// ACTIONS
+// ----------------------------------------------------------------------------
+
+.heading-section__actions {
+  margin-top: $space-4;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+
+    > * {
+      width: 100%;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// CHILDREN
+// ----------------------------------------------------------------------------
+
+.heading-section__children {
+  width: 100%;
+  margin-top: $space-4;
+}
+

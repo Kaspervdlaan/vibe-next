@@ -1,0 +1,122 @@
+// ============================================================================
+// BUTTON GROUP COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.button-group {
+  display: inline-flex;
+}
+
+// ----------------------------------------------------------------------------
+// FULL WIDTH
+// ----------------------------------------------------------------------------
+
+.button-group--full-width {
+  width: 100%;
+
+  > .button {
+    flex: 1;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// DISABLED
+// ----------------------------------------------------------------------------
+
+.button-group--disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// ----------------------------------------------------------------------------
+// ATTACHED VARIANT
+// ----------------------------------------------------------------------------
+
+.button-group--variant-attached {
+  // Horizontal attached
+  &.button-group--direction-row {
+    > .button {
+      border-radius: 0;
+      margin-left: calc(var(--border-width-default, 3px) * -1);
+
+      &:first-child {
+        margin-left: 0;
+        border-top-left-radius: var(--radius-md);
+        border-bottom-left-radius: var(--radius-md);
+      }
+
+      &:last-child {
+        border-top-right-radius: var(--radius-md);
+        border-bottom-right-radius: var(--radius-md);
+      }
+
+      // Only one button
+      &:only-child {
+        border-radius: var(--radius-md);
+      }
+
+      // Focus state brings button to front
+      &:focus-visible {
+        z-index: 1;
+      }
+
+      // Hover state brings button to front
+      &:hover {
+        z-index: 1;
+      }
+    }
+  }
+
+  // Vertical attached
+  &.button-group--direction-column {
+    > .button {
+      border-radius: 0;
+      margin-top: calc(var(--border-width-default, 3px) * -1);
+      width: 100%;
+
+      &:first-child {
+        margin-top: 0;
+        border-top-left-radius: var(--radius-md);
+        border-top-right-radius: var(--radius-md);
+      }
+
+      &:last-child {
+        border-bottom-left-radius: var(--radius-md);
+        border-bottom-right-radius: var(--radius-md);
+      }
+
+      // Only one button
+      &:only-child {
+        border-radius: var(--radius-md);
+      }
+
+      // Focus state brings button to front
+      &:focus-visible {
+        z-index: 1;
+        position: relative;
+      }
+
+      // Hover state brings button to front
+      &:hover {
+        z-index: 1;
+        position: relative;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,16 @@
+services:
+  vibe-next:
+    container_name: vibe-next
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${VIBE_NEXT_PORT:-3001}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_STORYBLOK_API_TOKEN: ${NEXT_PUBLIC_STORYBLOK_API_TOKEN}
+      STORY_API_URL: ${STORY_API_URL:-http://host.docker.internal:8000/api/story}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

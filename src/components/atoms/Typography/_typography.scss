@@ -1,0 +1,123 @@
+// ============================================================================
+// TYPOGRAPHY COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.typography {
+  font-family: var(--font-family-sans);
+  color: var(--color-text);
+  margin: 0;
+  transition: color var(--transition-fast);
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.typography--display {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.typography--h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.typography--h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.typography--h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.typography--body {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.typography--bodySm {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.typography--caption {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+// ----------------------------------------------------------------------------
+// WEIGHTS
+// ----------------------------------------------------------------------------
+
+.typography--weight-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.typography--weight-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+.typography--weight-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.typography--weight-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+// ----------------------------------------------------------------------------
+// ALIGNMENT
+// ----------------------------------------------------------------------------
+
+.typography--align-left {
+  text-align: left;
+}
+
+.typography--align-center {
+  text-align: center;
+}
+
+.typography--align-right {
+  text-align: right;
+}
+
+// ----------------------------------------------------------------------------
+// TONES
+// ----------------------------------------------------------------------------
+
+.typography--tone-muted {
+  color: var(--color-text-muted);
+}
+
+.typography--tone-danger {
+  color: var(--color-danger);
+}
+
+.typography--tone-success {
+  color: var(--color-success);
+}

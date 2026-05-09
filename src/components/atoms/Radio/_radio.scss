@@ -1,0 +1,227 @@
+// ============================================================================
+// RADIO COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// WRAPPER
+// ----------------------------------------------------------------------------
+
+.radio-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.radio-wrapper--full-width {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// CONTAINER
+// ----------------------------------------------------------------------------
+
+.radio-container {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.radio-container--label-left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+// ----------------------------------------------------------------------------
+// INPUT WRAPPER
+// ----------------------------------------------------------------------------
+
+.radio-input-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+// ----------------------------------------------------------------------------
+// RADIO INPUT (HIDDEN)
+// ----------------------------------------------------------------------------
+
+.radio {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// RADIO DOT (VISUAL)
+// ----------------------------------------------------------------------------
+
+.radio-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border: $border-default;
+  border-radius: 50%;
+  transition: 
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  &::after {
+    content: '';
+    display: none;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background-color: var(--color-on-primary);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.radio--sm {
+  width: 16px;
+  height: 16px;
+
+  + .radio-dot {
+    width: 16px;
+    height: 16px;
+
+    &::after {
+      width: 6px;
+      height: 6px;
+    }
+  }
+}
+
+.radio--md {
+  width: 20px;
+  height: 20px;
+
+  + .radio-dot {
+    width: 20px;
+    height: 20px;
+
+    &::after {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+
+.radio--lg {
+  width: 24px;
+  height: 24px;
+
+  + .radio-dot {
+    width: 24px;
+    height: 24px;
+
+    &::after {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// STATES
+// ----------------------------------------------------------------------------
+
+.radio:checked + .radio-dot {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+
+  &::after {
+    display: block;
+  }
+}
+
+.radio:focus-visible + .radio-dot {
+  @include focus-ring;
+}
+
+.radio:hover:not(:disabled) + .radio-dot {
+  border-color: var(--color-neutral-400);
+}
+
+.radio:checked:hover:not(:disabled) + .radio-dot {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+// ----------------------------------------------------------------------------
+// DISABLED STATE
+// ----------------------------------------------------------------------------
+
+.radio-container--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+
+  .radio-dot {
+    background-color: var(--color-surface-muted);
+    border-color: var(--color-border-muted);
+    cursor: not-allowed;
+  }
+
+  .radio:checked + .radio-dot {
+    background-color: var(--color-neutral-300);
+    border-color: var(--color-neutral-300);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// LABEL
+// ----------------------------------------------------------------------------
+
+.radio-label {
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+
+.radio-container--disabled .radio-label {
+  cursor: not-allowed;
+}
+
+// ----------------------------------------------------------------------------
+// HELPER TEXT
+// ----------------------------------------------------------------------------
+
+.radio-helper {
+  margin-top: $space-1;
+  margin-left: 0;
+}
+
+.radio-container--label-left ~ .radio-helper {
+  margin-left: 0;
+}
+
+.radio--sm + .radio-dot ~ * ~ .radio-helper {
+  margin-left: 24px;
+}
+
+.radio--md + .radio-dot ~ * ~ .radio-helper {
+  margin-left: 28px;
+}
+
+.radio--lg + .radio-dot ~ * ~ .radio-helper {
+  margin-left: 32px;
+}
+

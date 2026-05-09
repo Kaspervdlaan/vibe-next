@@ -1,0 +1,129 @@
+// ============================================================================
+// CARD COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-muted);
+  border: var(--card-border-width, 3px) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: 
+    transform var(--transition-fast), 
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover {
+    background-color: var(--color-neutral-100);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.card--elevated {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+
+  &:hover {
+    background-color: var(--color-surface);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.card--outlined {
+  border: var(--card-border-width, 3px) solid var(--color-border);
+  box-shadow: none;
+  background-color: var(--color-surface);
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.card--flat {
+  border: none;
+  box-shadow: var(--shadow-soft, none);
+  // Background colors inherited from base .card
+}
+
+// ----------------------------------------------------------------------------
+// PADDING
+// ----------------------------------------------------------------------------
+
+.card--padding-sm {
+  .card__header,
+  .card__body,
+  .card__footer {
+    padding: $space-3;
+  }
+}
+
+.card--padding-md {
+  .card__header,
+  .card__body,
+  .card__footer {
+    padding: $space-4;
+  }
+}
+
+.card--padding-lg {
+  .card__header,
+  .card__body,
+  .card__footer {
+    padding: $space-6;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SUBCOMPONENTS
+// ----------------------------------------------------------------------------
+
+.card__body {
+  flex: 1;
+  display: grid;
+}
+
+.card__footer {
+  justify-content: flex-end;
+}
+
+// ----------------------------------------------------------------------------
+// NESTED STYLES
+// ----------------------------------------------------------------------------
+
+.card__header + .card__body {
+  padding-top: $space-2;
+}
+
+.card__body + .card__footer {
+  padding-top: $space-2;
+}
+
+// ----------------------------------------------------------------------------
+// INTERACTIVE CARD MODIFIER
+// ----------------------------------------------------------------------------
+
+.card--interactive {
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+}

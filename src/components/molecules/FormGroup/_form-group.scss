@@ -1,0 +1,44 @@
+// ============================================================================
+// FORM GROUP COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-group__legend {
+  color: var(--color-text);
+  margin-bottom: $space-2;
+}
+
+.form-group__fields {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.form-group__helper {
+  margin-top: $space-1;
+}
+
+// ----------------------------------------------------------------------------
+// ERROR STATE
+// ----------------------------------------------------------------------------
+
+.form-group--error {
+  .form-group__legend {
+    color: var(--color-danger);
+  }
+}
+

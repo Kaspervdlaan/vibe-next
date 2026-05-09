@@ -1,0 +1,246 @@
+// ============================================================================
+// DIVIDER COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.divider {
+  flex-shrink: 0;
+}
+
+// ----------------------------------------------------------------------------
+// ORIENTATION
+// ----------------------------------------------------------------------------
+
+.divider--horizontal {
+  width: 100%;
+  height: 0;
+  border-top-width: $border-width-sm;
+  border-top-style: solid;
+}
+
+.divider--vertical {
+  height: 100%;
+  width: 0;
+  border-left-width: $border-width-sm;
+  border-left-style: solid;
+  align-self: stretch;
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.divider--solid {
+  &.divider--horizontal {
+    border-top-style: solid;
+  }
+  &.divider--vertical {
+    border-left-style: solid;
+  }
+}
+
+.divider--dashed {
+  &.divider--horizontal {
+    border-top-style: dashed;
+  }
+  &.divider--vertical {
+    border-left-style: dashed;
+  }
+}
+
+.divider--dotted {
+  &.divider--horizontal {
+    border-top-style: dotted;
+  }
+  &.divider--vertical {
+    border-left-style: dotted;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// WEIGHT
+// ----------------------------------------------------------------------------
+
+.divider--thin {
+  &.divider--horizontal {
+    border-top-width: 1px;
+  }
+  &.divider--vertical {
+    border-left-width: 1px;
+  }
+}
+
+.divider--medium {
+  &.divider--horizontal {
+    border-top-width: $border-width-sm;
+  }
+  &.divider--vertical {
+    border-left-width: $border-width-sm;
+  }
+}
+
+.divider--thick {
+  &.divider--horizontal {
+    border-top-width: $border-width-md;
+  }
+  &.divider--vertical {
+    border-left-width: $border-width-md;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SPACING
+// ----------------------------------------------------------------------------
+
+.divider--spacing-none {
+  &.divider--horizontal {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  &.divider--vertical {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.divider--spacing-sm {
+  &.divider--horizontal {
+    margin-top: $space-2;
+    margin-bottom: $space-2;
+  }
+  &.divider--vertical {
+    margin-left: $space-2;
+    margin-right: $space-2;
+  }
+}
+
+.divider--spacing-md {
+  &.divider--horizontal {
+    margin-top: $space-4;
+    margin-bottom: $space-4;
+  }
+  &.divider--vertical {
+    margin-left: $space-4;
+    margin-right: $space-4;
+  }
+}
+
+.divider--spacing-lg {
+  &.divider--horizontal {
+    margin-top: $space-6;
+    margin-bottom: $space-6;
+  }
+  &.divider--vertical {
+    margin-left: $space-6;
+    margin-right: $space-6;
+  }
+}
+
+.divider--spacing-xl {
+  &.divider--horizontal {
+    margin-top: $space-8;
+    margin-bottom: $space-8;
+  }
+  &.divider--vertical {
+    margin-left: $space-8;
+    margin-right: $space-8;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// COLORS
+// ----------------------------------------------------------------------------
+
+.divider--default {
+  border-color: $color-border;
+}
+
+.divider--muted {
+  border-color: $color-border-muted;
+}
+
+.divider--primary {
+  border-color: $color-primary;
+}
+
+.divider--secondary {
+  border-color: $color-secondary;
+}
+
+// ----------------------------------------------------------------------------
+// WITH LABEL
+// ----------------------------------------------------------------------------
+
+.divider--with-label {
+  border: none;
+  height: auto;
+
+  .divider__line {
+    flex: 1;
+    height: 0;
+    border-top-width: $border-width-sm;
+    border-top-style: inherit;
+    border-color: inherit;
+  }
+
+  .divider__label {
+    font-family: $font-family-sans;
+    font-size: $font-size-caption;
+    font-weight: $font-weight-medium;
+    letter-spacing: $letter-spacing-wide;
+    text-transform: uppercase;
+    color: $color-text-muted;
+    padding: 0 $space-2;
+    white-space: nowrap;
+  }
+
+  // Inherit border style for lines
+  &.divider--solid .divider__line {
+    border-top-style: solid;
+  }
+
+  &.divider--dashed .divider__line {
+    border-top-style: dashed;
+  }
+
+  &.divider--dotted .divider__line {
+    border-top-style: dotted;
+  }
+
+  // Inherit weight for lines
+  &.divider--thin .divider__line {
+    border-top-width: 1px;
+  }
+
+  &.divider--medium .divider__line {
+    border-top-width: $border-width-sm;
+  }
+
+  &.divider--thick .divider__line {
+    border-top-width: $border-width-md;
+  }
+
+  // Inherit color for lines
+  &.divider--default .divider__line {
+    border-color: $color-border;
+  }
+
+  &.divider--muted .divider__line {
+    border-color: $color-border-muted;
+  }
+
+  &.divider--primary .divider__line {
+    border-color: $color-primary;
+  }
+
+  &.divider--secondary .divider__line {
+    border-color: $color-secondary;
+  }
+}
+

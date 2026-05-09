@@ -1,0 +1,141 @@
+// ============================================================================
+// MEDIA SECTION COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.media-section {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// SPACING
+// ----------------------------------------------------------------------------
+
+.media-section--spacing-sm {
+  padding-top: $space-8;
+  padding-bottom: $space-8;
+}
+
+.media-section--spacing-md {
+  padding-top: $space-12;
+  padding-bottom: $space-12;
+}
+
+.media-section--spacing-lg {
+  padding-top: $space-16;
+  padding-bottom: $space-16;
+}
+
+.media-section--spacing-xl {
+  padding-top: $space-24;
+  padding-bottom: $space-24;
+}
+
+// ----------------------------------------------------------------------------
+// BACKGROUNDS
+// ----------------------------------------------------------------------------
+
+.media-section--bg-none {
+  background-color: transparent;
+}
+
+.media-section--bg-subtle {
+  background-color: $color-surface-muted;
+}
+
+.media-section--bg-dark {
+  background-color: $color-surface-dark;
+
+  .media-section__title,
+  .media-section__description {
+    color: $color-text-inverse;
+  }
+
+  .media-section__eyebrow {
+    color: $color-primary;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// GRID LAYOUT
+// ----------------------------------------------------------------------------
+
+.media-section__grid {
+  @media (max-width: 768px) {
+    flex-direction: column !important;
+  }
+}
+
+.media-section__media,
+.media-section__content {
+  flex: 1;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.media-section__media {
+  @media (max-width: 768px) {
+    order: -1;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// CONTENT ELEMENTS
+// ----------------------------------------------------------------------------
+
+.media-section__eyebrow {
+  color: $color-primary;
+  letter-spacing: $letter-spacing-ultra-wide;
+}
+
+.media-section__title {
+  letter-spacing: $letter-spacing-tight;
+}
+
+.media-section__description {
+  max-width: 540px;
+}
+
+.media-section__actions {
+  margin-top: $space-4;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: stretch !important;
+    width: 100%;
+
+    > * {
+      width: 100%;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// LAYOUT VARIATIONS
+// ----------------------------------------------------------------------------
+
+.media-section--media-left {
+  .media-section__content {
+    @media (min-width: 769px) {
+      padding-left: $space-8;
+    }
+  }
+}
+
+.media-section--media-right {
+  .media-section__content {
+    @media (min-width: 769px) {
+      padding-right: $space-8;
+    }
+  }
+}
+

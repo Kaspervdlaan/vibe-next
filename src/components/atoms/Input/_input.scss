@@ -1,0 +1,258 @@
+// ============================================================================
+// INPUT COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// WRAPPER
+// ----------------------------------------------------------------------------
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.input-wrapper--full-width {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// LABEL
+// ----------------------------------------------------------------------------
+
+.input-label {
+  color: var(--color-text);
+}
+
+// ----------------------------------------------------------------------------
+// INPUT CONTAINER
+// ----------------------------------------------------------------------------
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: var(--input-border-width, 3px) solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: 
+    border-color var(--transition-fast), 
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover:not(.input-container--disabled) {
+    border-color: var(--color-neutral-400);
+  }
+
+  &:focus-within:not(.input-container--disabled) {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.input-container--default {
+  background-color: var(--color-surface);
+}
+
+.input-container--filled {
+  background-color: var(--color-surface-muted);
+  border-color: transparent;
+
+  &:hover:not(.input-container--disabled) {
+    background-color: var(--color-neutral-100);
+    border-color: transparent;
+  }
+
+  &:focus-within:not(.input-container--disabled) {
+    background-color: var(--color-surface);
+    border-color: var(--color-primary);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.input-container--sm {
+  .input-field {
+    padding: $space-2 $space-3;
+    font-size: var(--font-size-body-sm);
+  }
+
+  .input-icon {
+    font-size: 1rem;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &.input-container--has-left-icon .input-field {
+    padding-left: $space-8;
+  }
+
+  &.input-container--has-right-icon .input-field {
+    padding-right: $space-8;
+  }
+
+  .input-icon--left {
+    left: $space-2;
+  }
+
+  .input-icon--right {
+    right: $space-2;
+  }
+}
+
+.input-container--md {
+  .input-field {
+    padding: $space-3 $space-4;
+    font-size: var(--font-size-body);
+  }
+
+  .input-icon {
+    font-size: 1.25rem;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.input-container--has-left-icon .input-field {
+    padding-left: $space-10;
+  }
+
+  &.input-container--has-right-icon .input-field {
+    padding-right: $space-10;
+  }
+
+  .input-icon--left {
+    left: $space-3;
+  }
+
+  .input-icon--right {
+    right: $space-3;
+  }
+}
+
+.input-container--lg {
+  .input-field {
+    padding: $space-4 $space-5;
+    font-size: var(--font-size-body);
+  }
+
+  .input-icon {
+    font-size: 1.5rem;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &.input-container--has-left-icon .input-field {
+    padding-left: $space-12;
+  }
+
+  &.input-container--has-right-icon .input-field {
+    padding-right: $space-12;
+  }
+
+  .input-icon--left {
+    left: $space-4;
+  }
+
+  .input-icon--right {
+    right: $space-4;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// INPUT FIELD
+// ----------------------------------------------------------------------------
+
+.input-field {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+  outline: none;
+
+  &::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--color-text-muted);
+  }
+}
+
+// ----------------------------------------------------------------------------
+// ICONS
+// ----------------------------------------------------------------------------
+
+.input-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  pointer-events: none;
+
+  svg {
+    display: block;
+  }
+}
+
+.input-container {
+  position: relative;
+}
+
+// ----------------------------------------------------------------------------
+// STATES
+// ----------------------------------------------------------------------------
+
+.input-container--error {
+  border-color: var(--color-danger);
+
+  &:hover:not(.input-container--disabled) {
+    border-color: var(--color-danger);
+  }
+
+  &:focus-within:not(.input-container--disabled) {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 30%, transparent);
+  }
+}
+
+.input-container--disabled {
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-border-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+
+  .input-icon {
+    opacity: 0.5;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// HELPER TEXT
+// ----------------------------------------------------------------------------
+
+.input-helper {
+  margin-top: $space-1;
+}

@@ -1,0 +1,296 @@
+// ============================================================================
+// WYSIWYG COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  font-family: $font-family-sans;
+  color: $color-text;
+  line-height: $line-height-body;
+
+  // Reset margins for first and last children
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZE VARIANTS
+// ----------------------------------------------------------------------------
+
+.wysiwyg--sm {
+  font-size: $font-size-body-sm;
+
+  h1 { font-size: $font-size-h2; }
+  h2 { font-size: $font-size-h3; }
+  h3 { font-size: $font-size-body; }
+  h4, h5, h6 { font-size: $font-size-body-sm; }
+
+  p, ul, ol, blockquote {
+    margin-bottom: $space-3;
+  }
+}
+
+.wysiwyg--md {
+  font-size: $font-size-body;
+
+  h1 { font-size: $font-size-h1; }
+  h2 { font-size: $font-size-h2; }
+  h3 { font-size: $font-size-h3; }
+  h4, h5, h6 { font-size: $font-size-body; }
+
+  p, ul, ol, blockquote {
+    margin-bottom: $space-4;
+  }
+}
+
+.wysiwyg--lg {
+  font-size: $font-size-body;
+
+  h1 { font-size: $font-size-display; }
+  h2 { font-size: $font-size-h1; }
+  h3 { font-size: $font-size-h2; }
+  h4, h5, h6 { font-size: $font-size-h3; }
+
+  p, ul, ol, blockquote {
+    margin-bottom: $space-5;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// HEADINGS
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-family-sans;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-heading;
+    letter-spacing: $letter-spacing-tight;
+    color: $color-text;
+    margin-top: $space-8;
+    margin-bottom: $space-4;
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// PARAGRAPHS
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  p {
+    line-height: $line-height-body;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// LINKS
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  a {
+    color: $color-secondary;
+    text-decoration: underline;
+    text-decoration-thickness: $border-width-sm;
+    text-underline-offset: 3px;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-secondary-hover;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// LISTS
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  ul, ol {
+    padding-left: $space-6;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    margin-bottom: $space-2;
+    line-height: $line-height-body;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Nested lists
+  ul ul, ol ol, ul ol, ol ul {
+    margin-top: $space-2;
+    margin-bottom: $space-2;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// BLOCKQUOTES
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  blockquote {
+    border-left: $border-width-lg solid $color-primary;
+    padding-left: $space-4;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    color: $color-text-muted;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// CODE
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  code {
+    font-family: $font-family-mono;
+    font-size: 0.9em;
+    background-color: $color-surface-muted;
+    padding: $space-1 $space-2;
+    border: 1px solid $color-border-muted;
+    @include squircle($radius-sm);
+  }
+
+  pre {
+    background-color: $color-neutral-800;
+    color: $color-text-inverse;
+    padding: $space-4;
+    overflow-x: auto;
+    border: $border-default;
+    @include squircle($radius-md);
+    margin-bottom: $space-4;
+
+    code {
+      background: none;
+      padding: 0;
+      border: none;
+      color: inherit;
+      border-radius: 0;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// IMAGES
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: $space-6 0;
+    border: $border-default;
+    @include squircle($radius-md);
+  }
+
+  figure {
+    margin: $space-6 0;
+
+    img {
+      margin: 0;
+    }
+
+    figcaption {
+      font-size: $font-size-caption;
+      color: $color-text-muted;
+      margin-top: $space-2;
+      text-align: center;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// HORIZONTAL RULE
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  hr {
+    border: none;
+    border-top: $border-width-sm solid $color-border;
+    margin: $space-8 0;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// TABLES
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: $space-6 0;
+    font-size: $font-size-body-sm;
+  }
+
+  th, td {
+    padding: $space-3 $space-4;
+    text-align: left;
+    border: $border-width-sm solid $color-border;
+  }
+
+  th {
+    font-weight: $font-weight-bold;
+    background-color: $color-surface-muted;
+  }
+
+  tr:nth-child(even) {
+    background-color: $color-surface-muted;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// STRONG & EMPHASIS
+// ----------------------------------------------------------------------------
+
+.wysiwyg {
+  strong, b {
+    font-weight: $font-weight-bold;
+  }
+
+  em, i {
+    font-style: italic;
+  }
+
+  mark {
+    background-color: $color-primary;
+    color: $color-on-primary;
+    padding: 0 $space-1;
+  }
+}
+

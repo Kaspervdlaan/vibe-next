@@ -1,0 +1,122 @@
+// ============================================================================
+// GRID SECTION COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// GRID
+// ----------------------------------------------------------------------------
+
+.grid-section__grid {
+  display: grid;
+  width: 100%;
+}
+
+.section--bg-dark.grid-section {
+  .heading__title {
+    color: $color-text-inverse;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// COLUMNS
+// ----------------------------------------------------------------------------
+
+.grid-section__grid--columns-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-section__grid--columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-section__grid--columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-section__grid--columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-section__grid--columns-5 {
+  grid-template-columns: repeat(5, 1fr);
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-section__grid--columns-6 {
+  grid-template-columns: repeat(6, 1fr);
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// GAP
+// ----------------------------------------------------------------------------
+
+.grid-section__grid--gap-none {
+  gap: 0;
+}
+
+.grid-section__grid--gap-xs {
+  gap: $space-2;
+}
+
+.grid-section__grid--gap-sm {
+  gap: $space-4;
+}
+
+.grid-section__grid--gap-md {
+  gap: $space-6;
+}
+
+.grid-section__grid--gap-lg {
+  gap: $space-8;
+}
+
+.grid-section__grid--gap-xl {
+  gap: $space-12;
+}
+

@@ -1,0 +1,110 @@
+// ============================================================================
+// BADGE COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  border: $border-default;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.badge--sm {
+  padding: $space-1 $space-2;
+  font-size: var(--font-size-caption);
+  line-height: 1;
+}
+
+.badge--md {
+  padding: $space-1 $space-3;
+  font-size: var(--font-size-caption);
+  line-height: 1.2;
+}
+
+.badge--lg {
+  padding: $space-2 $space-4;
+  font-size: var(--font-size-body-sm);
+  line-height: 1.2;
+}
+
+// ----------------------------------------------------------------------------
+// DOT VARIANT
+// ----------------------------------------------------------------------------
+
+.badge--dot {
+  padding: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  min-width: 8px;
+}
+
+.badge--dot.badge--sm {
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+}
+
+.badge--dot.badge--lg {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.badge--primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-border);
+}
+
+.badge--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+  border-color: var(--color-border);
+}
+
+.badge--danger {
+  background-color: var(--color-danger);
+  color: var(--color-on-danger);
+  border-color: var(--color-border);
+}
+
+.badge--success {
+  background-color: var(--color-success);
+  color: var(--color-on-success);
+  border-color: var(--color-border);
+}
+
+.badge--warning {
+  background-color: var(--color-warning);
+  color: var(--color-on-warning);
+  border-color: var(--color-border);
+}
+
+.badge--neutral {
+  background-color: var(--color-neutral-200);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+

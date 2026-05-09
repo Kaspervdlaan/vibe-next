@@ -1,0 +1,145 @@
+// ============================================================================
+// STACK COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.stack {
+  display: flex;
+  
+  &--inline {
+    display: inline-flex;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// DIRECTION
+// ----------------------------------------------------------------------------
+
+.stack--direction-row {
+  flex-direction: row;
+}
+
+.stack--direction-column {
+  flex-direction: column;
+}
+
+.stack--direction-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.stack--direction-column-reverse {
+  flex-direction: column-reverse;
+}
+
+// ----------------------------------------------------------------------------
+// ALIGN
+// ----------------------------------------------------------------------------
+
+.stack--align-start {
+  align-items: flex-start;
+}
+
+.stack--align-center {
+  align-items: center;
+}
+
+.stack--align-end {
+  align-items: flex-end;
+}
+
+.stack--align-stretch {
+  align-items: stretch;
+}
+
+.stack--align-baseline {
+  align-items: baseline;
+}
+
+// ----------------------------------------------------------------------------
+// JUSTIFY
+// ----------------------------------------------------------------------------
+
+.stack--justify-start {
+  justify-content: flex-start;
+}
+
+.stack--justify-center {
+  justify-content: center;
+}
+
+.stack--justify-end {
+  justify-content: flex-end;
+}
+
+.stack--justify-between {
+  justify-content: space-between;
+}
+
+.stack--justify-around {
+  justify-content: space-around;
+}
+
+.stack--justify-evenly {
+  justify-content: space-evenly;
+}
+
+// ----------------------------------------------------------------------------
+// GAP
+// ----------------------------------------------------------------------------
+
+.stack--gap-none {
+  gap: 0;
+}
+
+.stack--gap-xs {
+  gap: $space-1;
+}
+
+.stack--gap-sm {
+  gap: $space-2;
+}
+
+.stack--gap-md {
+  gap: $space-4;
+}
+
+.stack--gap-lg {
+  gap: $space-6;
+}
+
+.stack--gap-xl {
+  gap: $space-8;
+}
+
+// ----------------------------------------------------------------------------
+// WRAP
+// ----------------------------------------------------------------------------
+
+.stack--wrap-nowrap {
+  flex-wrap: nowrap;
+}
+
+.stack--wrap-wrap {
+  flex-wrap: wrap;
+}
+
+.stack--wrap-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+// ----------------------------------------------------------------------------
+// DIVIDER
+// ----------------------------------------------------------------------------
+
+.stack__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+

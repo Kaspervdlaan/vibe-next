@@ -1,0 +1,81 @@
+// ============================================================================
+// ICON CARD COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// BASE
+// ----------------------------------------------------------------------------
+
+.icon-card {
+  @include card-base;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+}
+
+// ----------------------------------------------------------------------------
+// VARIANTS
+// ----------------------------------------------------------------------------
+
+.icon-card--default {
+  background-color: $color-surface;
+  box-shadow: $shadow-md;
+
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.icon-card--outlined {
+  background-color: $color-surface;
+  box-shadow: none;
+
+  &:hover {
+    border-color: $color-primary;
+  }
+}
+
+.icon-card--filled {
+  background-color: $color-surface-muted;
+  border-color: transparent;
+  box-shadow: none;
+
+  &:hover {
+    background-color: $color-neutral-100;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// CENTERED MODIFIER
+// ----------------------------------------------------------------------------
+
+.icon-card--centered {
+  text-align: center;
+}
+
+// ----------------------------------------------------------------------------
+// CONTENT
+// ----------------------------------------------------------------------------
+
+.icon-card__content {
+  min-width: 0;
+}
+
+// ----------------------------------------------------------------------------
+// INTERACTIVE MODIFIER
+// ----------------------------------------------------------------------------
+
+.icon-card--interactive {
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+}

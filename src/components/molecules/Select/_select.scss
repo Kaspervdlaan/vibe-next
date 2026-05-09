@@ -1,0 +1,211 @@
+// ============================================================================
+// SELECT COMPONENT STYLES
+// ============================================================================
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ----------------------------------------------------------------------------
+// WRAPPER
+// ----------------------------------------------------------------------------
+
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.select-wrapper--full-width {
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// LABEL
+// ----------------------------------------------------------------------------
+
+.select-label {
+  color: var(--color-text);
+}
+
+// ----------------------------------------------------------------------------
+// CONTAINER
+// ----------------------------------------------------------------------------
+
+.select-container {
+  position: relative;
+}
+
+// ----------------------------------------------------------------------------
+// BUTTON
+// ----------------------------------------------------------------------------
+
+.select-button {
+  @include reset-button;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+  background-color: var(--color-surface);
+  border: var(--input-border-width, 3px) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: 
+    border-color var(--transition-fast), 
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-neutral-400);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+    z-index: 2;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SIZES
+// ----------------------------------------------------------------------------
+
+.select-button--sm {
+  padding: $space-2 $space-3;
+  font-size: var(--font-size-caption);
+}
+
+.select-button--md {
+  padding: $space-3 $space-4;
+  font-size: var(--font-size-body-sm);
+}
+
+.select-button--lg {
+  padding: $space-4 $space-5;
+  font-size: var(--font-size-body);
+}
+
+// ----------------------------------------------------------------------------
+// BUTTON ELEMENTS
+// ----------------------------------------------------------------------------
+
+.select-button__text {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:empty::before {
+    content: attr(placeholder);
+    color: var(--color-text-muted);
+  }
+}
+
+.select-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  transition: transform var(--transition-fast);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.select-button--open .select-button__icon {
+  transform: rotate(180deg);
+}
+
+// ----------------------------------------------------------------------------
+// STATES
+// ----------------------------------------------------------------------------
+
+.select-button--error {
+  border-color: var(--color-danger);
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-danger);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 30%, transparent);
+  }
+}
+
+.select-button--disabled {
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-border-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+// ----------------------------------------------------------------------------
+// LISTBOX
+// ----------------------------------------------------------------------------
+
+.select-listbox {
+  position: absolute;
+  top: calc(100% + $space-1);
+  left: 0;
+  right: 0;
+  z-index: $z-index-dropdown;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--color-surface);
+  border: $border-default;
+  border-radius: var(--radius-md);
+  box-shadow: $shadow-lg;
+  margin: 0;
+  padding: $space-1;
+  list-style: none;
+}
+
+// ----------------------------------------------------------------------------
+// OPTION
+// ----------------------------------------------------------------------------
+
+.select-option {
+  padding: $space-2 $space-3;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: 
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text);
+
+  &:hover:not(.select-option--disabled) {
+    background-color: var(--color-surface-muted);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.select-option--selected {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.select-option--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+// ----------------------------------------------------------------------------
+// HELPER TEXT
+// ----------------------------------------------------------------------------
+
+.select-helper {
+  margin-top: $space-1;
+}
+

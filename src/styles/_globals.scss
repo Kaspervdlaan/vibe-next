@@ -1,0 +1,237 @@
+// ============================================================================
+// VIBE DESIGN SYSTEM - GLOBAL STYLES
+// ============================================================================
+
+@use "variables" as *;
+@use "mixins" as *;
+@use "themes";
+
+// ----------------------------------------------------------------------------
+// CSS RESET
+// ----------------------------------------------------------------------------
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// ----------------------------------------------------------------------------
+// ROOT & HTML
+// ----------------------------------------------------------------------------
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.root {
+  isolation: isolate;
+}
+
+// ----------------------------------------------------------------------------
+// BODY
+// ----------------------------------------------------------------------------
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+// ----------------------------------------------------------------------------
+// TYPOGRAPHY DEFAULTS
+// ----------------------------------------------------------------------------
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-bold;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-tight;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+p {
+  margin-bottom: $space-4;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+strong, b {
+  font-weight: $font-weight-bold;
+}
+
+small {
+  font-size: $font-size-caption;
+}
+
+// ----------------------------------------------------------------------------
+// LINKS
+// ----------------------------------------------------------------------------
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: $border-width-sm;
+  text-underline-offset: 3px;
+  transition: color $transition-fast, text-decoration-color $transition-fast;
+  
+  &:hover {
+    color: $color-primary;
+    text-decoration-color: $color-primary;
+  }
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// IMAGES
+// ----------------------------------------------------------------------------
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// ----------------------------------------------------------------------------
+// FORM ELEMENTS
+// ----------------------------------------------------------------------------
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// Remove default button styles
+button:not([class]) {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+// ----------------------------------------------------------------------------
+// LISTS
+// ----------------------------------------------------------------------------
+
+ul, ol {
+  list-style-position: inside;
+  padding-left: $space-4;
+}
+
+// ----------------------------------------------------------------------------
+// CODE
+// ----------------------------------------------------------------------------
+
+code, pre, kbd, samp {
+  font-family: $font-family-mono;
+  font-size: 0.9em;
+}
+
+code {
+  background-color: $color-surface-muted;
+  padding: $space-1 $space-2;
+  border: 1px solid $color-border-muted;
+  @include squircle($radius-sm);
+}
+
+pre {
+  background-color: $color-neutral-800;
+  color: $color-text-inverse;
+  padding: $space-4;
+  overflow-x: auto;
+  border: $border-default;
+  @include squircle($radius-md);
+  
+  code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: inherit;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// SELECTION
+// ----------------------------------------------------------------------------
+
+::selection {
+  background-color: $color-primary;
+  color: $color-on-primary;
+}
+
+// ----------------------------------------------------------------------------
+// FOCUS VISIBLE (GLOBAL)
+// ----------------------------------------------------------------------------
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+// Skip focus-visible on elements with custom focus handling
+[data-focus-managed="true"]:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+// ----------------------------------------------------------------------------
+// REDUCED MOTION
+// ----------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// UTILITY CLASSES
+// ----------------------------------------------------------------------------
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.truncate {
+  @include truncate;
+}
+
