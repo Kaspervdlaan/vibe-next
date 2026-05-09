@@ -1,3 +1,5 @@
+import { cacheTag } from "next/cache";
+
 export interface StoryPayload {
   content?: Record<string, unknown>;
 }
@@ -25,6 +27,10 @@ export const fetchStoryBySlug = async (
   slug: string,
   revalidateSeconds: number,
 ): Promise<StoryApiResponse> => {
+  "use cache";
+
+  cacheTag(getStorySlugTag(slug));
+
   const endpoint = resolveStoryApiUrl();
   const url = `${endpoint}?slug=${encodeURIComponent(slug)}`;
 

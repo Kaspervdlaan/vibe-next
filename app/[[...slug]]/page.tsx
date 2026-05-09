@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import { StoryPageClient } from "../../src/components/story/StoryPageClient";
 import { fetchStoryBySlug } from "../../src/lib/api/story";
 
-export const revalidate = 300;
+const STORY_REVALIDATE_SECONDS = 300;
 
 type RouteParams = {
   slug?: string[];
@@ -20,12 +21,20 @@ const normalizeSlug = async (params: Promise<RouteParams> | RouteParams) => {
 };
 
 export default async function StoryPage({ params }: StoryPageProps) {
+  return (
+    <Suspense fallback={null}>
+      <StoryPageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function StoryPageContent({ params }: StoryPageProps) {
   const slug = await normalizeSlug(params);
   let fetchError: string | null = null;
   let story: Awaited<ReturnType<typeof fetchStoryBySlug>>["story"] | null = null;
 
   try {
-    const payload = await fetchStoryBySlug(slug, revalidate);
+    const payload = await fetchStoryBySlug(slug, STORY_REVALIDATE_SECONDS);
 
     if (!payload.story || typeof payload.story !== "object") {
       throw new Error("Story endpoint did not return valid story data.");

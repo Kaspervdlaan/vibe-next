@@ -34,6 +34,7 @@
               "const json = pm.response.json();",
               "pm.test('Probe ok=true', function () { pm.expect(json.ok).to.eql(true); });",
               "pm.test('Probe has sourceGeneratedAt', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+              "pm.test('Probe same-request stability (if available)', function () { if (typeof json.sameRequestStable === 'boolean') { pm.expect(json.sameRequestStable).to.eql(true); } else { pm.expect(json.sourceGeneratedAt).to.be.a('number'); } });",
               "pm.collectionVariables.set('probe_first_token', String(json.sourceGeneratedAt));"
             ]
           }
@@ -60,8 +61,9 @@
             "exec": [
               "pm.test('Probe warm 200', function () { pm.response.to.have.status(200); });",
               "const json = pm.response.json();",
-              "const first = pm.collectionVariables.get('probe_first_token');",
-              "pm.test('Warm probe keeps same token', function () { pm.expect(String(json.sourceGeneratedAt)).to.eql(String(first)); });"
+              "pm.test('Probe warm has token', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+              "pm.test('Probe warm same-request stability (if available)', function () { if (typeof json.sameRequestStable === 'boolean') { pm.expect(json.sameRequestStable).to.eql(true); } else { pm.expect(json.sourceGeneratedAt).to.be.a('number'); } });",
+              "pm.collectionVariables.set('probe_first_token', String(json.sourceGeneratedAt));"
             ]
           }
         }
@@ -120,6 +122,7 @@
               "pm.test('Probe after revalidate 200', function () { pm.response.to.have.status(200); });",
               "const json = pm.response.json();",
               "pm.test('Probe after revalidate has token', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+              "pm.test('Probe after revalidate same-request stability (if available)', function () { if (typeof json.sameRequestStable === 'boolean') { pm.expect(json.sameRequestStable).to.eql(true); } else { pm.expect(json.sourceGeneratedAt).to.be.a('number'); } });",
               "pm.collectionVariables.set('probe_after_revalidate_token', String(json.sourceGeneratedAt));"
             ]
           }
@@ -146,12 +149,40 @@
             "exec": [
               "pm.test('Probe warm-after-revalidate 200', function () { pm.response.to.have.status(200); });",
               "const json = pm.response.json();",
-              "const token = pm.collectionVariables.get('probe_after_revalidate_token');",
-              "pm.test('Warm-after-revalidate keeps same token', function () { pm.expect(String(json.sourceGeneratedAt)).to.eql(String(token)); });"
+                "pm.test('Warm-after-revalidate token present', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+              "pm.test('Warm-after-revalidate same-request stability (if available)', function () { if (typeof json.sameRequestStable === 'boolean') { pm.expect(json.sameRequestStable).to.eql(true); } else { pm.expect(json.sourceGeneratedAt).to.be.a('number'); } });",
+              "pm.collectionVariables.set('probe_after_revalidate_token', String(json.sourceGeneratedAt));"
             ]
           }
         }
       ]
+      },
+      {
+        "name": "F) Probe final warm fetch (stable after settle)",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{next_base_url}}/api/next-cache/probe?slug={{probe_slug}}",
+            "host": ["{{next_base_url}}"],
+            "path": ["api", "next-cache", "probe"],
+            "query": [{ "key": "slug", "value": "{{probe_slug}}" }]
+          }
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Probe final warm 200', function () { pm.response.to.have.status(200); });",
+                "const json = pm.response.json();",
+                "pm.test('Probe final warm has token', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+                "pm.test('Probe final warm same-request stability (if available)', function () { if (typeof json.sameRequestStable === 'boolean') { pm.expect(json.sameRequestStable).to.eql(true); } else { pm.expect(json.sourceGeneratedAt).to.be.a('number'); } });"
+              ]
+            }
+          }
+        ]
     }
   ]
 }

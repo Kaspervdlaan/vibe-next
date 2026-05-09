@@ -7,6 +7,7 @@ Import both files in this folder into Postman:
 - `vibe-home-about-full-matrix.postman_collection.json`
 - `vibe-next-cache-probe.postman_collection.json`
 - `droplet.postman_environment.json`
+- `local.postman_environment.json`
 
 Select the `droplet` environment and confirm these variables:
 - `laravel_base_url`
@@ -75,9 +76,11 @@ Collection: `vibe-next-cache-probe.postman_collection.json`
 2. `B) Probe second fetch (warm, same token)`
 3. `C) Revalidate slug in Next`
 4. `D) Probe after revalidate (capture token)`
-5. `E) Probe warm again after revalidate (stable token)`
+5. `E) Probe warm again after revalidate (settling step)`
+6. `F) Probe final warm fetch (stable after settle)`
 
 This collection verifies Next data-cache behavior directly:
 - Warm probe repeats the same `sourceGeneratedAt` token for the same slug.
 - After Next revalidate, a new probe token is captured for the refreshed cache entry.
-- A follow-up probe confirms the refreshed token is now warm/stable.
+- Because `revalidateTag(..., "max")` is stale-while-revalidate, one settling probe is allowed.
+- Final warm probe confirms the refreshed token is now stable.

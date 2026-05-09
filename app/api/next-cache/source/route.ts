@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
-
 const normalizeSlug = (slug?: string | null): string => {
   const normalized = (slug ?? "").trim().replace(/^\/+|\/+$/g, "");
 
