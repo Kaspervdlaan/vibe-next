@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   const resolvedSlugTag = getStorySlugTag(slug);
 
   revalidatePath(resolvedPath);
-  revalidateTag(resolvedSlugTag, "max");
+  revalidateTag(resolvedSlugTag, { expire: 0 });
 
   return NextResponse.json({
     revalidated: true,

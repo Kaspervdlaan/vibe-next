@@ -1,4 +1,4 @@
-import { cacheTag } from "next/cache";
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { getStorySlugTag } from "../../../../src/lib/api/story";
 
@@ -17,13 +17,21 @@ const getCachedProbeResponse = async (
   slug: string,
   tag: string,
 ): Promise<ProbeCacheResponse> => {
-  "use cache";
-  cacheTag(tag);
+  const resolver = unstable_cache(
+    async (): Promise<ProbeCacheResponse> => {
+      return {
+        slug,
+        generatedAt: Date.now(),
+      };
+    },
+    ["next-cache-probe", slug],
+    {
+      tags: [tag],
+      revalidate: 300,
+    },
+  );
 
-  return {
-    slug,
-    generatedAt: Date.now(),
-  };
+  return resolver();
 };
 
 export async function GET(request: NextRequest) {

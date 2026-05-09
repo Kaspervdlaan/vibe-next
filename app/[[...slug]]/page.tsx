@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { StoryPageClient } from "../../src/components/story/StoryPageClient";
 import { fetchStoryBySlug } from "../../src/lib/api/story";
 
@@ -21,14 +20,6 @@ const normalizeSlug = async (params: Promise<RouteParams> | RouteParams) => {
 };
 
 export default async function StoryPage({ params }: StoryPageProps) {
-  return (
-    <Suspense fallback={null}>
-      <StoryPageContent params={params} />
-    </Suspense>
-  );
-}
-
-async function StoryPageContent({ params }: StoryPageProps) {
   const slug = await normalizeSlug(params);
   let fetchError: string | null = null;
   let story: Awaited<ReturnType<typeof fetchStoryBySlug>>["story"] | null = null;
