@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { getStorySlugTag } from "../../../../src/lib/api/story";
 
@@ -9,51 +10,43 @@ const normalizeSlug = (slug?: string | null): string => {
   return normalized || "home";
 };
 
-interface ProbeSourceResponse {
-  slug?: string;
-  generatedAt?: number;
+interface ProbeCacheResponse {
+  slug: string;
+  generatedAt: number;
 }
+
+const getCachedProbeResponse = async (
+  slug: string,
+  tag: string,
+): Promise<ProbeCacheResponse> => {
+  const resolver = unstable_cache(
+    async (): Promise<ProbeCacheResponse> => {
+      return {
+        slug,
+        generatedAt: Date.now(),
+      };
+    },
+    ["next-cache-probe", slug],
+    {
+      tags: [tag],
+      revalidate: 300,
+    },
+  );
+
+  return resolver();
+};
 
 export async function GET(request: NextRequest) {
   const slug = normalizeSlug(request.nextUrl.searchParams.get("slug"));
   const tag = getStorySlugTag(slug);
-  const sourceUrl = new URL("/api/next-cache/source", request.nextUrl.origin);
-
-  sourceUrl.searchParams.set("slug", slug);
-
-  const response = await fetch(sourceUrl.toString(), {
-    headers: {
-      Accept: "application/json",
-    },
-    cache: "force-cache",
-    next: {
-      revalidate: 300,
-      tags: [tag],
-    },
-  });
-
-  if (!response.ok) {
-    return NextResponse.json(
-      {
-        ok: false,
-        slug,
-        tag,
-        error: `Probe source failed (${response.status})`,
-      },
-      {
-        status: 502,
-      },
-    );
-  }
-
-  const source = (await response.json()) as ProbeSourceResponse;
+  const source = await getCachedProbeResponse(slug, tag);
 
   return NextResponse.json({
     ok: true,
     slug,
     tag,
-    sourceGeneratedAt: source.generatedAt ?? null,
-    sourceSlug: source.slug ?? slug,
+    sourceGeneratedAt: source.generatedAt,
+    sourceSlug: source.slug,
     checkedAt: Date.now(),
   });
 }

@@ -1,0 +1,603 @@
+{
+  "info": {
+    "_postman_id": "4a2cb99d-5706-4a1f-9fba-f8b65431bf11",
+    "name": "Vibe Home/About Full Matrix",
+    "description": "Comprehensive checks for all current cache + invalidation features using only home/about slugs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "laravel_base_url", "value": "http://206.189.107.5:8000" },
+    { "key": "next_base_url", "value": "http://206.189.107.5:3001" },
+    { "key": "home_slug", "value": "home" },
+    { "key": "about_slug", "value": "about" },
+    { "key": "home_cv_latest_initial", "value": "" },
+    { "key": "about_cv_latest_initial", "value": "" },
+    { "key": "next_probe_slug", "value": "about" },
+    { "key": "next_probe_token_initial", "value": "" },
+    { "key": "next_probe_token_after_revalidate", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "A) Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/health",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "health"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Health 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Health status ok', function () { pm.expect(json.status).to.eql('ok'); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "B) Home fetch (cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{home_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Home cold 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Home has cv.latest', function () { pm.expect(json.cv && json.cv.latest).to.exist; });",
+            "pm.collectionVariables.set('home_cv_latest_initial', String(json.cv.latest || ''));"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "C) Home fetch (warm)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{home_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Home warm 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "const stored = pm.collectionVariables.get('home_cv_latest_initial');",
+            "pm.test('Home warm uses cached cv', function () { pm.expect(String(json.cv.used)).to.eql(String(stored)); });"
+            ,"pm.test('Home warm cache.hit=true', function () { pm.expect(json.cache && json.cache.hit).to.eql(true); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "D) About fetch (cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{about_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{about_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('About cold 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('About has cv.latest', function () { pm.expect(json.cv && json.cv.latest).to.exist; });",
+            "pm.collectionVariables.set('about_cv_latest_initial', String(json.cv.latest || ''));"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "E) About fetch (warm)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{about_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{about_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('About warm 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "const stored = pm.collectionVariables.get('about_cv_latest_initial');",
+            "pm.test('About warm uses cached cv', function () { pm.expect(String(json.cv.used)).to.eql(String(stored)); });"
+            ,"pm.test('About warm cache.hit=true', function () { pm.expect(json.cache && json.cache.hit).to.eql(true); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "F) Clear about (backend slug invalidation)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-full-matrix\",\n  \"slug\": \"{{about_slug}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story/cache/clear",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story", "cache", "clear"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Clear about 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Clear about invalidate=slug', function () { pm.expect(json.invalidate).to.eql('slug'); });",
+            "pm.test('Clear about slug=about', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('about_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "F2) About fetch right after clear (should be cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{about_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{about_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('About post-clear 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('About post-clear cache.hit=false', function () { pm.expect(json.cache && json.cache.hit).to.eql(false); });",
+            "pm.test('About post-clear cache.stale=false', function () { pm.expect(json.cache && json.cache.stale).to.eql(false); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "F3) About fetch again (should be warm)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{about_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{about_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('About warm-after-reprime 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('About warm-after-reprime cache.hit=true', function () { pm.expect(json.cache && json.cache.hit).to.eql(true); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "G) Home still warm after about clear",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{home_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Home after about clear 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "const stored = pm.collectionVariables.get('home_cv_latest_initial');",
+            "pm.test('Home still uses same cached cv', function () { pm.expect(String(json.cv.used)).to.eql(String(stored)); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "H) Clear default (backend root slug)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-full-matrix\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story/cache/clear",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story", "cache", "clear"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Clear default 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Clear default invalidate=slug', function () { pm.expect(json.invalidate).to.eql('slug'); });",
+            "pm.test('Clear default targets home root slug', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('home_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "H2) Clear about at end (simulate clear-all phase 1)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-full-matrix\",\n  \"slug\": \"{{about_slug}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story/cache/clear",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story", "cache", "clear"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Clear about end-phase 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Clear about end-phase invalidate=slug', function () { pm.expect(json.invalidate).to.eql('slug'); });",
+            "pm.test('Clear about end-phase slug=about', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('about_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "H3) Home fetch after end clear-all phase (should be cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{home_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Home post-end-clear 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Home post-end-clear cache.hit=false', function () { pm.expect(json.cache && json.cache.hit).to.eql(false); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "H4) About fetch after end clear-all phase (should be cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{about_slug}}",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "story"],
+          "query": [{ "key": "slug", "value": "{{about_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('About post-end-clear 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('About post-end-clear cache.hit=false', function () { pm.expect(json.cache && json.cache.hit).to.eql(false); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "I) Webhook about (slug invalidation)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"published\",\n  \"space_id\": 123456,\n  \"story\": {\n    \"full_slug\": \"{{about_slug}}\"\n  },\n  \"invalidate\": \"slug\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{laravel_base_url}}/api/storyblok/webhook",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "storyblok", "webhook"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Webhook about 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Webhook about invalidate=slug', function () { pm.expect(json.invalidate).to.eql('slug'); });",
+            "pm.test('Webhook about slug=about', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('about_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "J) Webhook fallback to home",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"published\",\n  \"space_id\": 123456,\n  \"story\": {\n    \"full_slug\": \"\"\n  }\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{laravel_base_url}}/api/storyblok/webhook",
+          "host": ["{{laravel_base_url}}"],
+          "path": ["api", "storyblok", "webhook"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Webhook fallback 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Webhook fallback invalidate=slug', function () { pm.expect(json.invalidate).to.eql('slug'); });",
+            "pm.test('Webhook fallback slug=home', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('home_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "K) Next revalidate about (direct)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-full-matrix\",\n  \"slug\": \"{{about_slug}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{next_base_url}}/api/revalidate",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "revalidate"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next about revalidate 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Next about scope=slug', function () { pm.expect(json.scope).to.eql('slug'); });",
+            "pm.test('Next about path=/about', function () { pm.expect(json.path).to.eql('/' + pm.collectionVariables.get('about_slug')); });",
+            "pm.test('Next about slug=about', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('about_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "L) Next revalidate home (direct)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-full-matrix\",\n  \"slug\": \"{{home_slug}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{next_base_url}}/api/revalidate",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "revalidate"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next home revalidate 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Next home scope=slug', function () { pm.expect(json.scope).to.eql('slug'); });",
+            "pm.test('Next home path=/', function () { pm.expect(json.path).to.eql('/'); });",
+            "pm.test('Next home slug=home', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('home_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "M1) Next cache probe first fetch (cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{next_probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{next_probe_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next probe cold 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Next probe ok=true', function () { pm.expect(json.ok).to.eql(true); });",
+            "pm.test('Next probe has token', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+            "pm.collectionVariables.set('next_probe_token_initial', String(json.sourceGeneratedAt));"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "M2) Next cache probe warm fetch (same token)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{next_probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{next_probe_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next probe warm 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "const token = pm.collectionVariables.get('next_probe_token_initial');",
+            "pm.test('Next probe warm token unchanged', function () { pm.expect(String(json.sourceGeneratedAt)).to.eql(String(token)); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "M3) Next revalidate probe slug",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-full-matrix\",\n  \"slug\": \"{{next_probe_slug}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{next_base_url}}/api/revalidate",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "revalidate"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next probe revalidate 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Next probe revalidate scope=slug', function () { pm.expect(json.scope).to.eql('slug'); });",
+            "pm.test('Next probe revalidate slug matches', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('next_probe_slug')); });"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "M4) Next cache probe after revalidate (capture token)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{next_probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{next_probe_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next probe post-revalidate 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "pm.test('Next probe post-revalidate has token', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+            "pm.collectionVariables.set('next_probe_token_after_revalidate', String(json.sourceGeneratedAt));"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "M5) Next cache probe warm after revalidate (stable)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{next_probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{next_probe_slug}}" }]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Next probe warm-after-revalidate 200', function () { pm.response.to.have.status(200); });",
+            "const json = pm.response.json();",
+            "const token = pm.collectionVariables.get('next_probe_token_after_revalidate');",
+            "pm.test('Next probe warm-after-revalidate token unchanged', function () { pm.expect(String(json.sourceGeneratedAt)).to.eql(String(token)); });"
+          ]
+        }
+      }]
+    }
+  ]
+}

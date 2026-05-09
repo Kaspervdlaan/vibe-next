@@ -1,0 +1,285 @@
+{
+  "info": {
+    "_postman_id": "8d41fda1-eb7f-4685-ad0d-5576ae8354ea",
+    "name": "Vibe Home/About Cache Isolation",
+    "description": "Verifies invalidating about slug does not evict home backend cache-version usage.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "laravel_base_url",
+      "value": "http://206.189.107.5:8000"
+    },
+    {
+      "key": "next_base_url",
+      "value": "http://206.189.107.5:3001"
+    },
+    {
+      "key": "home_slug",
+      "value": "home"
+    },
+    {
+      "key": "about_slug",
+      "value": "about"
+    },
+    {
+      "key": "home_cv_latest",
+      "value": ""
+    },
+    {
+      "key": "about_cv_latest",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "A) Health (Laravel)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/health",
+          "host": [
+            "{{laravel_base_url}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "B) Home fetch (cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": [
+            "{{laravel_base_url}}"
+          ],
+          "path": [
+            "api",
+            "story"
+          ],
+          "query": [
+            {
+              "key": "slug",
+              "value": "{{home_slug}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "pm.test('Home has cv.latest', function () {",
+              "  pm.expect(json.cv).to.be.an('object');",
+              "  pm.expect(json.cv.latest).to.exist;",
+              "});",
+              "pm.collectionVariables.set('home_cv_latest', String(json.cv.latest || ''));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "C) Home fetch (warm)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": [
+            "{{laravel_base_url}}"
+          ],
+          "path": [
+            "api",
+            "story"
+          ],
+          "query": [
+            {
+              "key": "slug",
+              "value": "{{home_slug}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "const homeCvLatest = pm.collectionVariables.get('home_cv_latest');",
+              "pm.test('Home warm uses cached cv', function () {",
+              "  pm.expect(json.cv).to.be.an('object');",
+              "  pm.expect(String(json.cv.used)).to.eql(String(homeCvLatest));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "D) About fetch (cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{about_slug}}",
+          "host": [
+            "{{laravel_base_url}}"
+          ],
+          "path": [
+            "api",
+            "story"
+          ],
+          "query": [
+            {
+              "key": "slug",
+              "value": "{{about_slug}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "pm.test('About has cv.latest', function () {",
+              "  pm.expect(json.cv).to.be.an('object');",
+              "  pm.expect(json.cv.latest).to.exist;",
+              "});",
+              "pm.collectionVariables.set('about_cv_latest', String(json.cv.latest || ''));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "E) Invalidate about slug (frontend)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-home-about-isolation\",\n  \"invalidate\": \"slug\",\n  \"slug\": \"{{about_slug}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{next_base_url}}/api/revalidate",
+          "host": [
+            "{{next_base_url}}"
+          ],
+          "path": [
+            "api",
+            "revalidate"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "pm.test('Revalidate scope is slug', function () {",
+              "  pm.expect(json.scope).to.eql('slug');",
+              "});",
+              "pm.test('Revalidate target path resolves about', function () {",
+              "  pm.expect(json.path).to.eql('/' + pm.collectionVariables.get('about_slug'));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "F) Home still warm after about invalidation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{laravel_base_url}}/api/story?slug={{home_slug}}",
+          "host": [
+            "{{laravel_base_url}}"
+          ],
+          "path": [
+            "api",
+            "story"
+          ],
+          "query": [
+            {
+              "key": "slug",
+              "value": "{{home_slug}}"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "const json = pm.response.json();",
+              "const homeCvLatest = pm.collectionVariables.get('home_cv_latest');",
+              "pm.test('Home still uses same cached cv', function () {",
+              "  pm.expect(json.cv).to.be.an('object');",
+              "  pm.expect(String(json.cv.used)).to.eql(String(homeCvLatest));",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

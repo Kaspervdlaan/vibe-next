@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "b61c2f03-7902-4a95-9f05-ef873c8f82f0",
+    "name": "Vibe Next Cache Probe",
+    "description": "Checks Next data cache behavior using a deterministic probe endpoint and slug-scoped revalidation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "next_base_url", "value": "http://206.189.107.5:3001" },
+    { "key": "probe_slug", "value": "about" },
+    { "key": "probe_first_token", "value": "" },
+    { "key": "probe_after_revalidate_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "A) Probe first fetch (cold)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{probe_slug}}" }]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Probe cold 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Probe ok=true', function () { pm.expect(json.ok).to.eql(true); });",
+              "pm.test('Probe has sourceGeneratedAt', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+              "pm.collectionVariables.set('probe_first_token', String(json.sourceGeneratedAt));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "B) Probe second fetch (warm, same token)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{probe_slug}}" }]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Probe warm 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "const first = pm.collectionVariables.get('probe_first_token');",
+              "pm.test('Warm probe keeps same token', function () { pm.expect(String(json.sourceGeneratedAt)).to.eql(String(first)); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "C) Revalidate slug in Next",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"source\": \"postman-next-cache-probe\",\n  \"slug\": \"{{probe_slug}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{next_base_url}}/api/revalidate",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "revalidate"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Next revalidate 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Revalidate scope slug', function () { pm.expect(json.scope).to.eql('slug'); });",
+              "pm.test('Revalidate slug matches', function () { pm.expect(json.slug).to.eql(pm.collectionVariables.get('probe_slug')); });",
+              "pm.test('Revalidate success true', function () { pm.expect(json.revalidated).to.eql(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "D) Probe after revalidate (capture token)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{probe_slug}}" }]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Probe after revalidate 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Probe after revalidate has token', function () { pm.expect(json.sourceGeneratedAt).to.be.a('number'); });",
+              "pm.collectionVariables.set('probe_after_revalidate_token', String(json.sourceGeneratedAt));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "E) Probe warm again after revalidate (stable token)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{next_base_url}}/api/next-cache/probe?slug={{probe_slug}}",
+          "host": ["{{next_base_url}}"],
+          "path": ["api", "next-cache", "probe"],
+          "query": [{ "key": "slug", "value": "{{probe_slug}}" }]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Probe warm-after-revalidate 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "const token = pm.collectionVariables.get('probe_after_revalidate_token');",
+              "pm.test('Warm-after-revalidate keeps same token', function () { pm.expect(String(json.sourceGeneratedAt)).to.eql(String(token)); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
