@@ -8,6 +8,13 @@ export interface StoryApiResponse {
 }
 
 export const STORY_GLOBAL_TAG = "story:global";
+const STORY_SLUG_TAG_PREFIX = "story:slug:";
+
+export const getStorySlugTag = (slug: string): string => {
+  const normalizedSlug = slug.trim().replace(/^\/+|\/+$/g, "") || "home";
+
+  return `${STORY_SLUG_TAG_PREFIX}${normalizedSlug}`;
+};
 
 const DEFAULT_STORY_API_URL = "http://localhost/api/story";
 
@@ -28,7 +35,7 @@ export const fetchStoryBySlug = async (
     },
     next: {
       revalidate: revalidateSeconds,
-      tags: [STORY_GLOBAL_TAG],
+      tags: [STORY_GLOBAL_TAG, getStorySlugTag(slug)],
     },
   });
 
